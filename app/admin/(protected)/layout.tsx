@@ -29,6 +29,22 @@ export default async function AdminProtectedLayout({
   // Lapisan kedua di samping middleware — mencegah render sisi server jika sesi kosong
   if (!user) redirect("/admin/login");
 
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role, status")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  // Belum ada profil, atau belum di-approve owner → lempar ke halaman menunggu
+  if (!profile || profile.status !== "approved") {
+    redirect("/admin/menunggu");
+  }
+
+  const isSuperAdmin = profile.role === "super_admin";
+  const menuLinks = isSuperAdmin
+    ? [...links, { href: "/admin/pengguna", label: "Pengguna" }]
+    : links;
+
   return (
     <div className="flex min-h-screen bg-gray-50">
       <aside className="hidden w-60 flex-shrink-0 border-r border-gray-200 bg-white p-5 md:block">
@@ -39,7 +55,7 @@ export default async function AdminProtectedLayout({
           <span className="text-sm font-bold text-blue-900">Admin Panel</span>
         </div>
         <nav className="space-y-0.5">
-          {links.map((l) => (
+          {menuLinks.map((l) => (
             <Link
               key={l.href}
               href={l.href}

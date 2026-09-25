@@ -10,7 +10,9 @@ create extension if not exists "uuid-ossp";
 create table if not exists profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   full_name text,
+  email text,
   role text not null default 'admin' check (role in ('admin', 'super_admin', 'editor')),
+  status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -183,14 +185,63 @@ alter table ppdb enable row level security;
 alter table school_settings enable row level security;
 alter table social_links enable row level security;
 
--- Helper: cek apakah user login adalah admin
+-- Helper: cek apakah user login adalah admin berstatus approved
 create or replace function is_admin() returns boolean as $$
-  select exists (select 1 from profiles where id = auth.uid());
+  select exists (
+    select 1 from profiles where id = auth.uid() and status = 'approved'
+  );
 $$ language sql stable security definer;
 
--- Profiles: admin hanya bisa lihat/edit datanya sendiri
+-- Helper: cek apakah user login adalah owner (super_admin) berstatus approved
+create or replace function is_super_admin() returns boolean as $$
+  select exists (
+    select 1 from profiles
+    where id = auth.uid() and status = 'approved' and role = 'super_admin'
+  );
+$$ language sql stable security definer;
+
+-- Trigger: setiap ada user baru daftar (auth.users), otomatis buat profil berstatus pending
+create or replace function handle_new_admin_signup() returns trigger as $$
+begin
+  insert into public.profiles (id, full_name, email, role, status)
+  values (
+    new.id,
+    coalesce(new.raw_user_meta_data->>'full_name', ''),
+    new.email,
+    'admin',
+    'pending'
+  )
+  on conflict (id) do nothing;
+  return new;
+end;
+$$ language plpgsql security definer;
+
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function handle_new_admin_signup();
+
+-- Trigger: cegah admin biasa mengubah role/status dirinya sendiri (anti self-approve)
+create or replace function prevent_role_status_escalation() returns trigger as $$
+begin
+  if not is_super_admin()
+     and (new.role is distinct from old.role or new.status is distinct from old.status) then
+    raise exception 'Tidak diizinkan mengubah role atau status. Hubungi owner.';
+  end if;
+  return new;
+end;
+$$ language plpgsql security definer;
+
+drop trigger if exists trg_prevent_escalation on profiles;
+create trigger trg_prevent_escalation
+  before update on profiles
+  for each row execute function prevent_role_status_escalation();
+
+-- Profiles: admin hanya bisa lihat/edit datanya sendiri; owner bisa lihat & kelola semua
 create policy "profiles_self_select" on profiles for select using (auth.uid() = id);
 create policy "profiles_self_update" on profiles for update using (auth.uid() = id);
+create policy "profiles_super_admin_select_all" on profiles for select using (is_super_admin());
+create policy "profiles_super_admin_update_all" on profiles for update using (is_super_admin());
 
 -- Pola yang sama diulang untuk tiap tabel konten publik:
 -- SELECT: semua orang boleh baca yang published (atau semua baris untuk data referensi seperti teachers/departments)
@@ -233,8 +284,11 @@ create policy "social_public_read" on social_links for select using (true);
 create policy "social_admin_all" on social_links for all using (is_admin()) with check (is_admin());
 
 -- ==========================================================
--- Catatan setup admin pertama:
--- 1. Buat user lewat Supabase Auth (dashboard atau supabase.auth.signUp).
--- 2. Insert manual ke tabel profiles dengan id yang sama dengan auth.users.id:
---    insert into profiles (id, full_name, role) values ('<uuid-user>', 'Nama Admin', 'super_admin');
+-- Catatan setup admin pertama (owner):
+-- 1. Buat user lewat Supabase Auth Dashboard (Authentication > Users > Add user).
+--    Trigger di atas otomatis membuat baris profiles dengan role='admin', status='pending'.
+-- 2. Jadikan owner dengan update manual:
+--    update profiles set role = 'super_admin', status = 'approved' where id = '<uuid-user>';
+-- 3. Admin berikutnya bisa daftar sendiri lewat halaman /admin/register,
+--    lalu di-approve oleh owner lewat menu "Pengguna" di panel admin.
 -- ==========================================================

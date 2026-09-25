@@ -21,15 +21,34 @@ npm run dev
    `.env.local` sebagai `NEXT_PUBLIC_SUPABASE_URL` dan `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
    `service_role key` (SUPABASE_SERVICE_ROLE_KEY) hanya perlu jika nanti ada operasi server
    khusus — **jangan pernah** taruh di kode yang berjalan di browser.
-4. **Buat akun admin pertama:**
+4. **Buat akun owner (admin pertama):**
    - Di dashboard Supabase → **Authentication → Users → Add user**, buat user dengan email &
-     password admin.
-   - Salin `User UID`-nya, lalu jalankan di SQL Editor:
+     password owner.
+   - Trigger di schema otomatis membuat baris di tabel `profiles` untuk user ini
+     (role=`admin`, status=`pending`).
+   - Salin `User UID`-nya, lalu jadikan owner lewat SQL Editor:
      ```sql
-     insert into profiles (id, full_name, role)
-     values ('TEMPEL-UID-DI-SINI', 'Nama Admin', 'super_admin');
+     update profiles set role = 'super_admin', status = 'approved'
+     where id = 'TEMPEL-UID-DI-SINI';
      ```
-   - Sekarang admin bisa login di `/admin/login`.
+   - Sekarang owner bisa login di `/admin/login`.
+
+### Kalau project Supabase kamu sudah pernah pakai schema versi lama (sebelum ada fitur approval)
+
+Jalankan tambahan `supabase/migrations/002_admin_approval.sql` di SQL Editor. Ini aman
+dijalankan sekali di project yang sudah jalan — otomatis membuat akun yang sudah ada jadi
+`approved`, jadi kamu tidak ikut ter-lock.
+
+## Alur approval admin baru
+
+- Admin baru daftar sendiri lewat `/admin/register` → otomatis masuk sebagai
+  role=`admin`, status=`pending`.
+- Selama `pending`, kalau mereka login akan diarahkan ke halaman "Menunggu Persetujuan" dan
+  belum bisa akses dashboard.
+- **Owner** (role=`super_admin`) login seperti biasa, lalu buka menu **Pengguna** di sidebar
+  (menu ini cuma muncul untuk owner) untuk **Setujui**, **Tolak**, atau menjadikan admin lain
+  sebagai **Owner**.
+- Admin biasa tidak bisa mengubah status/role dirinya sendiri (diblokir di level database).
 
 ## 3. Setup Cloudinary
 
