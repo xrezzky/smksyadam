@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+
+Sitemap: https://SITUS-ANDA.vercel.app/sitemap.xml
