@@ -54,17 +54,20 @@ export default function Navbar({
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
         <Link href="/" className="flex items-center gap-2.5">
           {logoUrl ? (
+            // Logo dianggap sudah memuat nama sekolah — tidak perlu diulang jadi teks di sampingnya
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={logoUrl} alt={schoolName} className="h-9 w-9 rounded-lg object-cover" />
+            <img src={logoUrl} alt={schoolName} className="h-11 w-auto max-w-[220px] object-contain" />
           ) : (
-            <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-blue-700 font-serif text-sm font-bold text-white">
-              SS
-            </span>
+            <>
+              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-blue-700 font-serif text-sm font-bold text-white">
+                SS
+              </span>
+              <span className="leading-tight">
+                <span className="block text-sm font-bold">{schoolName.toUpperCase()}</span>
+                <span className="block text-[11px] text-gray-500">Bojonggede · Kab. Bogor</span>
+              </span>
+            </>
           )}
-          <span className="leading-tight">
-            <span className="block text-sm font-bold">{schoolName.toUpperCase()}</span>
-            <span className="block text-[11px] text-gray-500">Bojonggede · Kab. Bogor</span>
-          </span>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm md:flex">
