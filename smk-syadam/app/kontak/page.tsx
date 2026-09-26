@@ -12,9 +12,9 @@ export default async function KontakPage() {
   return (
     <>
       <Navbar schoolName={settings?.school_name ?? undefined} logoUrl={settings?.logo_url} />
-      <main className="mx-auto max-w-3xl px-5 py-14">
-        <h1 className="mb-5 font-serif text-3xl text-blue-900">Kontak</h1>
-        <div className="space-y-3 text-[15px] text-gray-500">
+      <main className="mx-auto max-w-3xl px-5 py-10 md:py-14">
+        <h1 className="mb-5 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Kontak</h1>
+        <div className="space-y-3 rounded-xl border border-gray-200 bg-white p-5 text-[15px] leading-relaxed text-gray-500 sm:p-6">
           <p><strong className="text-ink">Alamat:</strong> {settings?.address ?? "[Alamat resmi sekolah]"}</p>
           <p><strong className="text-ink">Telepon:</strong> {settings?.phone ?? "[Nomor telepon]"}</p>
           <p><strong className="text-ink">WhatsApp:</strong> {settings?.whatsapp ?? "[Nomor WhatsApp]"}</p>

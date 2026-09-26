@@ -14,9 +14,9 @@ export default async function KegiatanPage() {
 
   return (
     <PublicShell>
-      <main className="mx-auto max-w-6xl px-5 py-14">
+      <main className="mx-auto max-w-6xl px-5 py-10 md:py-14">
         <div className="mb-7 flex items-baseline justify-between">
-          <h1 className="font-serif text-3xl text-blue-900">Kegiatan Sekolah</h1>
+          <h1 className="font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Kegiatan Sekolah</h1>
           <Link href="/galeri" className="text-[13.5px] font-semibold text-blue-700">
             Lihat Semua Galeri →
           </Link>

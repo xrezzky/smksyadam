@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import PublicShell from "@/components/PublicShell";
+import EmptyState from "@/components/EmptyState";
 
 export const revalidate = 60;
 
@@ -12,8 +13,8 @@ export default async function AgendaPage() {
 
   return (
     <PublicShell>
-      <main className="mx-auto max-w-3xl px-5 py-14">
-        <h1 className="mb-7 font-serif text-3xl text-blue-900">Agenda Sekolah</h1>
+      <main className="mx-auto max-w-3xl px-5 py-10 md:py-14">
+        <h1 className="mb-7 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Agenda Sekolah</h1>
 
         {items && items.length > 0 ? (
           <div className="space-y-4">
@@ -37,14 +38,14 @@ export default async function AgendaPage() {
                     WIB{e.location ? ` · ${e.location}` : ""}
                   </p>
                   {e.description && (
-                    <p className="mt-1 text-[13.5px] text-gray-500">{e.description}</p>
+                    <p className="mt-1 text-[14px] leading-relaxed text-gray-500">{e.description}</p>
                   )}
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-[14px] text-gray-500">Belum ada agenda mendatang.</p>
+          <EmptyState icon="🗓️" message="Belum ada agenda mendatang." />
         )}
       </main>
     </PublicShell>

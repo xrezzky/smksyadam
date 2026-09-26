@@ -10,7 +10,7 @@ export default function Hero({
   return (
     <>
       <section
-        className="relative bg-blue-100 py-14 md:py-20"
+        className="relative overflow-hidden bg-gradient-to-br from-blue-100 to-white py-9 sm:py-12 md:py-16"
         style={
           heroImageUrl
             ? {
@@ -21,21 +21,29 @@ export default function Hero({
             : undefined
         }
       >
-        {/* Overlay tipis di atas foto supaya tone foto seragam — kontras teks dijamin oleh kartu solid di bawah, bukan overlay ini */}
+        {/* Overlay tipis di atas foto supaya tone foto seragam — kontras teks tetap dijamin oleh kartu solid, bukan overlay ini */}
         {heroImageUrl && <div className="absolute inset-0 bg-blue-900/25" aria-hidden="true" />}
 
+        {/* Aksen visual halus supaya hero tidak terasa kosong saat belum ada foto */}
+        {!heroImageUrl && (
+          <div
+            className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-blue-500/10 md:h-80 md:w-80"
+            aria-hidden="true"
+          />
+        )}
+
         <div className="relative mx-auto max-w-6xl px-5">
-          <div className="max-w-xl rounded-xl bg-white p-6 shadow-md md:p-8">
-            <span className="mb-5 inline-block rounded-full border border-blue-500 bg-blue-100 px-3 py-1.5 text-xs font-semibold text-blue-700">
+          <div className="rounded-xl bg-white p-5 shadow-md sm:p-7 md:max-w-xl md:p-8">
+            <span className="mb-4 inline-block rounded-full border border-blue-500 bg-blue-100 px-3 py-1.5 text-xs font-semibold tracking-wide text-blue-700">
               SMK SYADAM BOJONGGEDE
             </span>
-            <h1 className="mb-4 font-serif text-[clamp(26px,4.5vw,40px)] leading-tight text-blue-900">
+            <h1 className="mb-3 font-serif text-[clamp(28px,6vw,40px)] leading-[1.15] text-blue-900">
               Selamat Datang di SMK Syadam Bojonggede
             </h1>
-            <p className="mb-2.5 text-base font-semibold text-blue-700">
+            <p className="mb-2.5 text-[15px] font-semibold text-blue-700 sm:text-base">
               Website Resmi SMK Syadam Bojonggede
             </p>
-            <p className="mb-7 text-[15px] leading-relaxed text-gray-500">
+            <p className="mb-6 text-[15px] leading-relaxed text-gray-500">
               {description ??
                 "Website ini menjadi pusat informasi resmi sekolah — profil, akademik, berita, agenda, dan penerimaan peserta didik baru — bagi siswa, orang tua, calon siswa, guru, dan masyarakat umum."}
             </p>
@@ -64,11 +72,8 @@ export default function Hero({
           </div>
         </div>
       </section>
-      <svg viewBox="0 0 1440 60" preserveAspectRatio="none" className="block h-14 w-full">
-        <path
-          d="M0,32 C240,60 480,0 720,20 C960,40 1200,10 1440,30 L1440,60 L0,60 Z"
-          fill="#f4f6f8"
-        />
+      <svg viewBox="0 0 1440 40" preserveAspectRatio="none" className="block h-8 w-full sm:h-10">
+        <path d="M0,20 C240,40 480,0 720,14 C960,28 1200,6 1440,20 L1440,40 L0,40 Z" fill="#f4f6f8" />
       </svg>
     </>
   );

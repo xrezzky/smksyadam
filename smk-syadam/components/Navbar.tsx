@@ -114,7 +114,7 @@ export default function Navbar({
       </div>
 
       {mobileOpen && (
-        <nav className="border-t border-gray-200 bg-white px-5 py-3 md:hidden">
+        <nav className="max-h-[80vh] overflow-y-auto border-t border-gray-200 bg-white px-5 py-3 md:hidden">
           {menu.map((item) => (
             <div key={item.label} className="py-1.5">
               <Link

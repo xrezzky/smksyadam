@@ -46,11 +46,11 @@ export default async function HomePage() {
       <Hero heroImageUrl={settings?.hero_image_url} />
 
       {/* SECTION 1 — Tentang Sekolah */}
-      <section className="py-14">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-5 md:grid-cols-[1.1fr_0.9fr] md:gap-12">
+      <section className="py-10 md:py-14">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 px-5 md:grid-cols-[1.1fr_0.9fr] md:gap-12">
           <div>
             <SectionTitle eyebrow="Tentang Kami" title="Tentang SMK Syadam" />
-            <p className="mb-4 max-w-[52ch] text-[15.5px] text-gray-500">
+            <p className="mb-5 max-w-[52ch] text-[15px] leading-relaxed text-gray-500">
               [Deskripsi singkat sekolah — dapat diisi admin melalui menu Pengaturan.] Bagian ini
               menjelaskan sejarah singkat, ciri khas, dan komitmen sekolah dalam mendidik siswa.
             </p>
@@ -65,10 +65,14 @@ export default async function HomePage() {
             {aboutImageList.length > 0 ? (
               <AboutCarousel images={aboutImageList} />
             ) : (
-              <div className="flex aspect-[4/3] items-center justify-center rounded-md border border-dashed border-gray-200 bg-gray-50 p-5 text-center text-[13.5px] text-gray-500">
-                Foto lingkungan sekolah
-                <br />
-                (diisi via menu &quot;Foto Tentang&quot; di admin)
+              <div className="flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-blue-100 to-blue-50 p-6 text-center">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-xl shadow-sm">
+                  🏫
+                </span>
+                <p className="text-[13.5px] font-medium text-blue-900">Foto lingkungan sekolah</p>
+                <p className="text-[12.5px] text-blue-700/70">
+                  Segera hadir — dapat diisi admin lewat menu &quot;Foto Tentang&quot;
+                </p>
               </div>
             )}
           </div>
@@ -76,11 +80,11 @@ export default async function HomePage() {
       </section>
 
       {/* SECTION 4 — Kompetensi Keahlian */}
-      <section className="bg-gray-50 py-14">
+      <section className="bg-gray-50 py-10 md:py-14">
         <div className="mx-auto max-w-6xl px-5">
           <SectionTitle eyebrow="Akademik" title="Kompetensi Keahlian" />
           {departmentList.length > 0 ? (
-            <div className="mt-6 grid grid-cols-1 gap-[18px] md:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-[18px] sm:grid-cols-2 md:grid-cols-3">
               {departmentList.map((d, i) => (
                 <JurusanCard key={d.slug} item={d} index={i} />
               ))}
@@ -92,33 +96,36 @@ export default async function HomePage() {
       </section>
 
       {/* SECTION 5 — Berita Terbaru */}
-      <section className="py-14">
+      <section className="py-10 md:py-14">
         <div className="mx-auto max-w-6xl px-5">
-          <div className="mb-1 flex items-baseline justify-between">
+          <div className="mb-1 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
             <SectionTitle eyebrow="Informasi" title="Berita Terbaru" />
             <Link href="/berita" className="text-[13.5px] font-semibold text-blue-700">
               Lihat Semua Berita →
             </Link>
           </div>
           {newsList.length > 0 ? (
-            <div className="mt-5 grid grid-cols-1 gap-[18px] md:grid-cols-3">
+            <div className="mt-5 grid grid-cols-1 gap-[18px] sm:grid-cols-2 md:grid-cols-3">
               {newsList.map((n) => (
                 <NewsCard key={n.slug} item={n} />
               ))}
             </div>
           ) : (
-            <p className="mt-5 text-[14px] text-gray-500">Belum ada berita yang dipublikasikan.</p>
+            <div className="mt-5 flex flex-col items-center gap-2 rounded-xl border border-dashed border-gray-200 bg-gray-50 py-10 text-center">
+              <span className="text-2xl">📰</span>
+              <p className="text-[14px] text-gray-500">Belum ada berita yang dipublikasikan.</p>
+            </div>
           )}
         </div>
       </section>
 
       {/* SECTION 11 — PPDB CTA */}
-      <div className="mx-auto max-w-6xl px-5 pb-14">
-        <div className="rounded-xl bg-blue-900 p-8 text-white md:p-11">
+      <div className="mx-auto max-w-6xl px-5 pb-10 md:pb-14">
+        <div className="rounded-xl bg-blue-900 p-6 text-white sm:p-8 md:p-11">
           <h2 className="mb-2.5 font-serif text-[clamp(22px,3vw,28px)]">
             Penerimaan Peserta Didik Baru
           </h2>
-          <p className="mb-[22px] max-w-[56ch] text-[14.5px] text-[#c9d7ea]">
+          <p className="mb-[22px] max-w-[56ch] text-[14.5px] leading-relaxed text-[#c9d7ea]">
             Informasi jadwal, persyaratan, dan alur pendaftaran PPDB dapat dilihat pada halaman
             PPDB.
           </p>

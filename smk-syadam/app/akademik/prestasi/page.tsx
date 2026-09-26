@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import PublicShell from "@/components/PublicShell";
+import EmptyState from "@/components/EmptyState";
 
 export default async function PrestasiPage() {
   const supabase = createClient();
@@ -10,11 +11,11 @@ export default async function PrestasiPage() {
 
   return (
     <PublicShell>
-      <main className="mx-auto max-w-6xl px-5 py-14">
-        <h1 className="mb-7 font-serif text-3xl text-blue-900">Prestasi</h1>
+      <main className="mx-auto max-w-6xl px-5 py-10 md:py-14">
+        <h1 className="mb-7 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Prestasi</h1>
 
         {items && items.length > 0 ? (
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
             {items.map((a) => (
               <div key={a.id} className="overflow-hidden rounded-md border border-gray-200">
                 <div className="flex aspect-video items-center justify-center bg-gray-50 text-[12.5px] text-gray-500">
@@ -39,7 +40,7 @@ export default async function PrestasiPage() {
             ))}
           </div>
         ) : (
-          <p className="text-[14px] text-gray-500">Data prestasi akan diperbarui.</p>
+          <EmptyState icon="🏆" message="Data prestasi akan diperbarui." />
         )}
       </main>
     </PublicShell>
