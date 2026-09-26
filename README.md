@@ -33,11 +33,12 @@ npm run dev
      ```
    - Sekarang owner bisa login di `/admin/login`.
 
-### Kalau project Supabase kamu sudah pernah pakai schema versi lama (sebelum ada fitur approval)
+### Kalau project Supabase kamu sudah pernah pakai schema versi lama
 
-Jalankan tambahan `supabase/migrations/002_admin_approval.sql` di SQL Editor. Ini aman
-dijalankan sekali di project yang sudah jalan — otomatis membuat akun yang sudah ada jadi
-`approved`, jadi kamu tidak ikut ter-lock.
+Jalankan tambahan migration berikut di SQL Editor (urut, aman dijalankan sekali):
+- `supabase/migrations/002_admin_approval.sql` — sistem approval admin baru.
+- `supabase/migrations/003_about_images.sql` — foto carousel untuk section "Tentang" di
+  beranda (terpisah dari foto hero).
 
 ## Alur approval admin baru
 
