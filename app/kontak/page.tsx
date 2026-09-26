@@ -31,21 +31,27 @@ export default async function KontakPage() {
           </div>
         )}
 
-        {settings?.google_maps_url && (
-          settings.google_maps_url.includes("/maps/embed") ? (
-            <div className="mt-8 aspect-video overflow-hidden rounded-md border border-gray-200">
-              <iframe src={settings.google_maps_url} className="h-full w-full" loading="lazy" />
+        {settings?.address && (
+          <div className="mt-8">
+            <div className="aspect-video overflow-hidden rounded-md border border-gray-200">
+              <iframe
+                src={`https://www.google.com/maps?q=${encodeURIComponent(settings.address)}&output=embed`}
+                className="h-full w-full"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
-          ) : (
-            <a
-              href={settings.google_maps_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-8 inline-block rounded-md border border-blue-500 px-[22px] py-3 text-sm font-semibold text-blue-700 hover:bg-blue-100"
-            >
-              Buka Lokasi di Google Maps →
-            </a>
-          )
+            {settings?.google_maps_url && (
+              <a
+                href={settings.google_maps_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-block text-[13.5px] font-semibold text-blue-700"
+              >
+                Buka di Google Maps →
+              </a>
+            )}
+          </div>
         )}
       </main>
       <Footer settings={settings ?? undefined} />
