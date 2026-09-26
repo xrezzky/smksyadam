@@ -2,37 +2,6 @@ import { createClient } from "@/lib/supabase/server";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-// Cari titik lokasi paling akurat yang bisa didapat dari data yang ada:
-// 1) link embed asli dari admin (paling akurat, dipakai apa adanya)
-// 2) koordinat lat/lng yang kebetulan ada di dalam link Google Maps biasa
-// 3) pencarian "nama sekolah + alamat" (jauh lebih akurat daripada alamat mentah,
-//    karena biasanya langsung ketemu titik sekolah di Google Maps)
-function resolveMapEmbedSrc(googleMapsUrl: string | null | undefined, query: string | null) {
-  if (googleMapsUrl && (googleMapsUrl.includes("/maps/embed") || googleMapsUrl.includes("output=embed"))) {
-    return googleMapsUrl;
-  }
-
-  if (googleMapsUrl) {
-    const coordPatterns = [
-      /@(-?\d+\.\d+),(-?\d+\.\d+)/, // .../place/.../@-6.123,106.456,17z
-      /!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/, // pola koordinat di beberapa link Google Maps
-      /[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)/, // ?q=-6.123,106.456
-    ];
-    for (const pattern of coordPatterns) {
-      const match = googleMapsUrl.match(pattern);
-      if (match) {
-        return `https://www.google.com/maps?q=${match[1]},${match[2]}&z=17&output=embed`;
-      }
-    }
-  }
-
-  if (query) {
-    return `https://www.google.com/maps?q=${encodeURIComponent(query)}&z=16&output=embed`;
-  }
-
-  return null;
-}
-
 export default async function KontakPage() {
   const supabase = createClient();
   const [{ data: settings }, { data: socials }] = await Promise.all([
@@ -40,10 +9,8 @@ export default async function KontakPage() {
     supabase.from("social_links").select("*"),
   ]);
 
-  const mapQuery = settings?.address
-    ? `${settings?.school_name ?? "SMK Syadam Bojonggede"}, ${settings.address}`
-    : null;
-  const mapEmbedSrc = resolveMapEmbedSrc(settings?.google_maps_url, mapQuery);
+  // Link yang diinput admin dipakai apa adanya, tidak diutak-atik atau dicari ulang.
+  const mapEmbedSrc = settings?.google_maps_url || null;
 
   return (
     <>
