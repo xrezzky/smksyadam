@@ -9,8 +9,17 @@ export default async function KontakPage() {
     supabase.from("social_links").select("*"),
   ]);
 
-  // Link yang diinput admin dipakai apa adanya, tidak diutak-atik atau dicari ulang.
-  const mapEmbedSrc = settings?.google_maps_url || null;
+  // Prioritas lokasi peta:
+  // 1) google_maps_url — kalau ada, SELALU dipakai apa adanya, tidak divalidasi/diubah,
+  //    karena ini sudah pasti titik lokasi yang benar (diinput manual oleh admin).
+  // 2) address — hanya dipakai sebagai fallback pencarian kalau google_maps_url kosong.
+  const mapEmbedSrc = settings?.google_maps_url
+    ? settings.google_maps_url
+    : settings?.address
+    ? `https://www.google.com/maps?q=${encodeURIComponent(
+        `${settings?.school_name ?? "SMK Syadam Bojonggede"}, ${settings.address}`
+      )}&output=embed`
+    : null;
 
   return (
     <>
