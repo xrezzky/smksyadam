@@ -11,7 +11,7 @@ export default function VisiMisiPage() {
             Visi
           </h2>
           <p className="font-serif text-xl leading-relaxed text-blue-900">
-            [Visi sekolah akan ditampilkan di sini setelah data resmi tersedia.]
+            Mencetak lulusan yang disiplin, berakhlak mulia, dan siap kerja.
           </p>
         </section>
 
@@ -20,9 +20,18 @@ export default function VisiMisiPage() {
             Misi
           </h2>
           <ol className="list-decimal space-y-2 pl-5 text-[15px] text-gray-500">
-            <li>[Poin misi 1 akan diisi oleh admin.]</li>
-            <li>[Poin misi 2 akan diisi oleh admin.]</li>
-            <li>[Poin misi 3 akan diisi oleh admin.]</li>
+            <li>
+              Menyelenggarakan pembelajaran kejuruan yang selaras dengan kebutuhan dunia usaha dan
+              dunia industri.
+            </li>
+            <li>
+              Membekali peserta didik dengan keahlian teknis pada bidang teknologi, desain,
+              perhotelan, dan bisnis agar mampu bersaing secara profesional.
+            </li>
+            <li>
+              Menanamkan kedisiplinan dan membentuk karakter siswa yang berlandaskan akhlakul
+              karimah.
+            </li>
           </ol>
         </section>
       </main>

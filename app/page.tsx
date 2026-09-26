@@ -60,8 +60,11 @@ export default async function HomePage() {
           <div>
             <SectionTitle eyebrow="Tentang Kami" title="Tentang SMK Syadam" />
             <p className="mb-5 max-w-[52ch] text-[15px] leading-relaxed text-gray-500">
-              [Deskripsi singkat sekolah — dapat diisi admin melalui menu Pengaturan.] Bagian ini
-              menjelaskan sejarah singkat, ciri khas, dan komitmen sekolah dalam mendidik siswa.
+              SMK Syadam Bojonggede adalah sekolah menengah kejuruan swasta di bawah naungan
+              Yayasan Aqilah Hidayah, berdiri sejak tahun 2011 di Tajur Halang, Kabupaten Bogor.
+              Sekolah ini menyelenggarakan pendidikan vokasi dengan Kurikulum Merdeka, membuka
+              empat kompetensi keahlian — TKJ, DKV, APH, dan MPLB — untuk membekali siswa dengan
+              keterampilan siap kerja dan berakhlak baik.
             </p>
             <Link
               href="/profil/tentang"
