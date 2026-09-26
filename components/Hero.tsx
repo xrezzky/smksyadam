@@ -35,14 +35,11 @@ export default function Hero({
         <div className="relative mx-auto max-w-6xl px-5">
           <div className="rounded-xl bg-white p-5 shadow-md sm:p-7 md:max-w-xl md:p-8">
             <span className="mb-4 inline-block rounded-full border border-blue-500 bg-blue-100 px-3 py-1.5 text-xs font-semibold tracking-wide text-blue-700">
-              SMK SYADAM BOJONGGEDE
+              WEBSITE RESMI SEKOLAH
             </span>
-            <h1 className="mb-3 font-serif text-[clamp(28px,6vw,40px)] leading-[1.15] text-blue-900">
+            <h1 className="mb-4 font-serif text-[clamp(28px,6vw,40px)] leading-[1.15] text-blue-900">
               Selamat Datang di SMK Syadam Bojonggede
             </h1>
-            <p className="mb-2.5 text-[15px] font-semibold text-blue-700 sm:text-base">
-              Website Resmi SMK Syadam Bojonggede
-            </p>
             <p className="mb-6 text-[15px] leading-relaxed text-gray-500">
               {description ??
                 "Website ini menjadi pusat informasi resmi sekolah — profil, akademik, berita, agenda, dan penerimaan peserta didik baru — bagi siswa, orang tua, calon siswa, guru, dan masyarakat umum."}
