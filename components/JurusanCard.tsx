@@ -8,8 +8,8 @@ export type Department = {
 
 export default function JurusanCard({ item, index }: { item: Department; index: number }) {
   return (
-    <div className="flex h-full flex-col rounded-md border border-gray-200 bg-white p-5 transition-shadow hover:shadow-sm sm:p-[22px]">
-      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-md bg-blue-100 font-serif font-bold text-blue-700">
+    <div className="card-lift group flex h-full flex-col rounded-md border border-gray-200 bg-white p-5 hover:border-blue-500/40 sm:p-[22px]">
+      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-md bg-blue-100 font-serif font-bold text-blue-700 transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110">
         J{index + 1}
       </div>
       <h3 className="mb-1.5 text-base font-semibold text-ink">{item.name}</h3>
@@ -20,7 +20,7 @@ export default function JurusanCard({ item, index }: { item: Department; index: 
         href={`/akademik/jurusan/${item.slug}`}
         className="mt-auto pt-1 text-[13.5px] font-semibold text-blue-700"
       >
-        Lihat Detail →
+        Lihat Detail <span className="arrow-nudge">→</span>
       </Link>
     </div>
   );

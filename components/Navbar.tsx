@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const menu = [
   { label: "Beranda", href: "/" },
@@ -48,9 +48,22 @@ export default function Navbar({
   logoUrl?: string | null;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Bayangan tipis muncul begitu halaman mulai discroll — bikin navbar terasa "mengambang"
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur">
+    <header
+      className={`sticky top-0 z-50 border-b bg-white/95 backdrop-blur transition-shadow duration-300 ${
+        scrolled ? "border-gray-200 shadow-md" : "border-transparent shadow-none"
+      }`}
+    >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
         <Link href="/" className="flex flex-shrink-0 items-center gap-2.5">
           {logoUrl ? (
@@ -75,17 +88,17 @@ export default function Navbar({
             <div key={item.label} className="group relative flex h-full items-center">
               <Link
                 href={item.href}
-                className="border-b-2 border-transparent py-2 text-blue-900 hover:border-blue-500"
+                className="border-b-2 border-transparent py-2 text-blue-900 transition-colors duration-200 hover:border-blue-500"
               >
                 {item.label}
               </Link>
               {item.children && (
-                <div className="invisible absolute left-0 top-full min-w-[210px] rounded-md border border-gray-200 bg-white py-2 opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100">
+                <div className="invisible absolute left-0 top-full min-w-[210px] -translate-y-1.5 rounded-md border border-gray-200 bg-white py-2 opacity-0 shadow-lg transition-all duration-200 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
                   {item.children.map((child) => (
                     <Link
                       key={child.href}
                       href={child.href}
-                      className="block px-4 py-2 text-[13.5px] text-ink hover:bg-gray-50"
+                      className="block px-4 py-2 text-[13.5px] text-ink transition-colors duration-150 hover:bg-blue-100 hover:text-blue-700"
                     >
                       {child.label}
                     </Link>
@@ -106,15 +119,33 @@ export default function Navbar({
         <button
           aria-label="Buka menu"
           aria-expanded={mobileOpen}
-          className="text-2xl text-blue-900 md:hidden"
+          className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center md:hidden"
           onClick={() => setMobileOpen((v) => !v)}
         >
-          {mobileOpen ? "✕" : "☰"}
+          <span
+            className={`absolute block h-0.5 w-6 rounded-full bg-blue-900 transition-all duration-300 ${
+              mobileOpen ? "rotate-45" : "-translate-y-2"
+            }`}
+          />
+          <span
+            className={`absolute block h-0.5 w-6 rounded-full bg-blue-900 transition-all duration-200 ${
+              mobileOpen ? "opacity-0" : "opacity-100"
+            }`}
+          />
+          <span
+            className={`absolute block h-0.5 w-6 rounded-full bg-blue-900 transition-all duration-300 ${
+              mobileOpen ? "-rotate-45" : "translate-y-2"
+            }`}
+          />
         </button>
       </div>
 
-      {mobileOpen && (
-        <nav className="max-h-[80vh] overflow-y-auto border-t border-gray-200 bg-white px-5 py-3 md:hidden">
+      <nav
+        className={`grid overflow-hidden border-gray-200 bg-white transition-all duration-300 ease-out md:hidden ${
+          mobileOpen ? "grid-rows-[1fr] border-t opacity-100" : "grid-rows-[0fr] border-t-0 opacity-0"
+        }`}
+      >
+        <div className="max-h-[80vh] overflow-y-auto px-5 py-3">
           {menu.map((item) => (
             <div key={item.label} className="py-1.5">
               <Link
@@ -147,8 +178,8 @@ export default function Navbar({
           >
             Informasi PPDB
           </Link>
-        </nav>
-      )}
+        </div>
+      </nav>
     </header>
   );
 }

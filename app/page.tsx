@@ -7,6 +7,7 @@ import JurusanCard, { type Department } from "@/components/JurusanCard";
 import AboutCarousel, { type AboutImage } from "@/components/AboutCarousel";
 import Footer from "@/components/Footer";
 import EmptyState from "@/components/EmptyState";
+import Reveal from "@/components/Reveal";
 import Link from "next/link";
 
 // Pilih jumlah kolom grid berdasarkan jumlah jurusan yang benar-benar ada,
@@ -57,7 +58,7 @@ export default async function HomePage() {
       {/* SECTION 1 — Tentang Sekolah */}
       <section className="py-10 md:py-14">
         <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 px-5 md:grid-cols-[1.1fr_0.9fr] md:gap-10">
-          <div>
+          <Reveal direction="left">
             <SectionTitle eyebrow="Tentang Kami" title="Tentang SMK Syadam" />
             <p className="mb-5 max-w-[52ch] text-[15px] leading-relaxed text-gray-500">
               SMK Syadam Bojonggede adalah sekolah menengah kejuruan swasta di bawah naungan
@@ -68,12 +69,12 @@ export default async function HomePage() {
             </p>
             <Link
               href="/profil/tentang"
-              className="inline-block rounded-md border border-blue-500 px-[22px] py-3 text-sm font-semibold text-blue-700 hover:bg-blue-100"
+              className="btn-pop inline-block rounded-md border border-blue-500 px-[22px] py-3 text-sm font-semibold text-blue-700 hover:bg-blue-100"
             >
               Selengkapnya
             </Link>
-          </div>
-          <div>
+          </Reveal>
+          <Reveal direction="right" delay={120}>
             {aboutImageList.length > 0 ? (
               <AboutCarousel images={aboutImageList} />
             ) : (
@@ -87,20 +88,24 @@ export default async function HomePage() {
                 </p>
               </div>
             )}
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* SECTION 4 — Kompetensi Keahlian */}
       <section className="bg-gray-50 py-10 md:py-14">
         <div className="mx-auto max-w-6xl px-5">
-          <SectionTitle eyebrow="Akademik" title="Kompetensi Keahlian" />
+          <Reveal>
+            <SectionTitle eyebrow="Akademik" title="Kompetensi Keahlian" />
+          </Reveal>
           {departmentList.length > 0 ? (
             <div
               className={`mt-6 grid grid-cols-1 gap-[18px] ${jurusanGridClass(departmentList.length)}`}
             >
               {departmentList.map((d, i) => (
-                <JurusanCard key={d.slug} item={d} index={i} />
+                <Reveal key={d.slug} delay={i * 90}>
+                  <JurusanCard item={d} index={i} />
+                </Reveal>
               ))}
             </div>
           ) : (
@@ -114,16 +119,18 @@ export default async function HomePage() {
       {/* SECTION 5 — Berita Terbaru */}
       <section className="py-10 md:py-14">
         <div className="mx-auto max-w-6xl px-5">
-          <div className="mb-1 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+          <Reveal className="mb-1 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
             <SectionTitle eyebrow="Informasi" title="Berita Terbaru" />
-            <Link href="/berita" className="text-[13.5px] font-semibold text-blue-700">
-              Lihat Semua Berita →
+            <Link href="/berita" className="group text-[13.5px] font-semibold text-blue-700">
+              Lihat Semua Berita <span className="arrow-nudge">→</span>
             </Link>
-          </div>
+          </Reveal>
           {newsList.length > 0 ? (
             <div className="mt-5 grid grid-cols-1 gap-[18px] sm:grid-cols-2 md:grid-cols-3">
-              {newsList.map((n) => (
-                <NewsCard key={n.slug} item={n} />
+              {newsList.map((n, i) => (
+                <Reveal key={n.slug} delay={i * 90}>
+                  <NewsCard item={n} />
+                </Reveal>
               ))}
             </div>
           ) : (
@@ -136,7 +143,11 @@ export default async function HomePage() {
 
       {/* SECTION 11 — PPDB CTA */}
       <div className="mx-auto max-w-6xl px-5 pb-10 md:pb-14">
-        <div className="rounded-xl bg-blue-900 p-6 text-white sm:p-8 md:p-10">
+        <Reveal className="relative overflow-hidden rounded-xl bg-blue-900 p-6 text-white sm:p-8 md:p-10">
+          <div
+            className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 animate-float-slow rounded-full bg-white/5"
+            aria-hidden="true"
+          />
           <h2 className="mb-2.5 font-serif text-[clamp(22px,3vw,28px)]">
             Penerimaan Peserta Didik Baru
           </h2>
@@ -144,18 +155,21 @@ export default async function HomePage() {
             Informasi jadwal, persyaratan, dan alur pendaftaran PPDB dapat dilihat pada halaman
             PPDB.
           </p>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/ppdb" className="rounded-md bg-white px-[22px] py-3 text-sm font-semibold text-blue-900 hover:bg-gray-50">
+          <div className="relative flex flex-wrap gap-3">
+            <Link
+              href="/ppdb"
+              className="shimmer-cta btn-pop rounded-md bg-white px-[22px] py-3 text-sm font-semibold text-blue-900 hover:bg-gray-50"
+            >
               Lihat Informasi PPDB
             </Link>
             <Link
               href="/ppdb#daftar"
-              className="rounded-md border border-[#7c9cc7] px-[22px] py-3 text-sm font-semibold text-white hover:bg-blue-700"
+              className="btn-pop rounded-md border border-[#7c9cc7] px-[22px] py-3 text-sm font-semibold text-white hover:bg-blue-700"
             >
               Daftar Sekarang
             </Link>
           </div>
-        </div>
+        </Reveal>
       </div>
 
       <Footer settings={settings ?? undefined} />
