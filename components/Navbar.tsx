@@ -98,7 +98,7 @@ export default function Navbar({
 
         <Link
           href="/ppdb"
-          className="hidden rounded-md bg-blue-700 px-4.5 py-2 text-sm font-semibold text-white hover:bg-blue-900 md:inline-block"
+          className="hidden rounded-md bg-blue-700 px-[18px] py-2 text-sm font-semibold text-white hover:bg-blue-900 md:inline-block"
         >
           Informasi PPDB
         </Link>
@@ -114,7 +114,7 @@ export default function Navbar({
       </div>
 
       {mobileOpen && (
-        <nav className="border-t border-gray-200 bg-white px-5 py-3 md:hidden">
+        <nav className="max-h-[80vh] overflow-y-auto border-t border-gray-200 bg-white px-5 py-3 md:hidden">
           {menu.map((item) => (
             <div key={item.label} className="py-1.5">
               <Link

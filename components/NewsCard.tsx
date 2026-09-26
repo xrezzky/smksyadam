@@ -37,9 +37,9 @@ export default function NewsCard({ item }: { item: NewsItem }) {
             {item.category_name}
           </div>
         )}
-        <h3 className="mb-1.5 text-[15px] leading-snug">{item.title}</h3>
+        <h3 className="mb-1.5 text-[15.5px] font-medium leading-snug text-ink">{item.title}</h3>
         {date && <div className="mb-2 text-xs text-gray-500">{date}</div>}
-        {item.excerpt && <p className="text-[13.5px] text-gray-500">{item.excerpt}</p>}
+        {item.excerpt && <p className="text-[14px] leading-relaxed text-gray-500">{item.excerpt}</p>}
       </div>
     </Link>
   );

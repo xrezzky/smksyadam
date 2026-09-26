@@ -12,8 +12,8 @@ export default async function PpdbPage() {
   return (
     <>
       <Navbar schoolName={settings?.school_name ?? undefined} logoUrl={settings?.logo_url} />
-      <main className="mx-auto max-w-3xl px-5 py-14">
-        <h1 className="mb-5 font-serif text-3xl text-blue-900">
+      <main className="mx-auto max-w-3xl px-5 py-10 md:py-14">
+        <h1 className="mb-5 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">
           Penerimaan Peserta Didik Baru
         </h1>
 
@@ -38,12 +38,12 @@ export default async function PpdbPage() {
           </p>
         </section>
 
-        <section id="daftar" className="mb-4">
+        <section id="daftar" className="mb-4 scroll-mt-20">
           <h2 className="mb-2 text-lg font-semibold text-ink">Pendaftaran</h2>
           {ppdb?.registration_link ? (
             <a
               href={ppdb.registration_link}
-              className="inline-block rounded-md bg-blue-700 px-5.5 py-3 text-sm font-semibold text-white hover:bg-blue-900"
+              className="inline-block rounded-md bg-blue-700 px-[22px] py-3 text-sm font-semibold text-white hover:bg-blue-900"
             >
               Daftar Sekarang
             </a>

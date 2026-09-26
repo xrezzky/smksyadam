@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import PublicShell from "@/components/PublicShell";
+import EmptyState from "@/components/EmptyState";
 
 export const revalidate = 60;
 
@@ -13,8 +14,8 @@ export default async function PengumumanPage() {
 
   return (
     <PublicShell>
-      <main className="mx-auto max-w-3xl px-5 py-14">
-        <h1 className="mb-7 font-serif text-3xl text-blue-900">Pengumuman</h1>
+      <main className="mx-auto max-w-3xl px-5 py-10 md:py-14">
+        <h1 className="mb-7 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Pengumuman</h1>
 
         {items && items.length > 0 ? (
           <div className="space-y-5">
@@ -35,7 +36,7 @@ export default async function PengumumanPage() {
             ))}
           </div>
         ) : (
-          <p className="text-[14px] text-gray-500">Belum ada pengumuman.</p>
+          <EmptyState icon="📢" message="Belum ada pengumuman." />
         )}
       </main>
     </PublicShell>

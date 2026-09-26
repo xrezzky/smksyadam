@@ -28,13 +28,13 @@ export default async function BeritaDetailPage({ params }: { params: { slug: str
   return (
     <>
       <Navbar schoolName={settings?.school_name ?? undefined} logoUrl={settings?.logo_url} />
-      <main className="mx-auto max-w-3xl px-5 py-14">
+      <main className="mx-auto max-w-3xl px-5 py-10 md:py-14">
         {item.categories?.name && (
           <div className="mb-2 text-[12.5px] font-semibold text-accent-green">
             {item.categories.name}
           </div>
         )}
-        <h1 className="mb-2 font-serif text-3xl text-blue-900">{item.title}</h1>
+        <h1 className="mb-2 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">{item.title}</h1>
         {date && <div className="mb-6 text-sm text-gray-500">{date}</div>}
         {item.thumbnail_url && (
           // eslint-disable-next-line @next/next/no-img-element

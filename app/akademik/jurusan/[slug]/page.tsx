@@ -14,8 +14,8 @@ export default async function JurusanDetailPage({ params }: { params: { slug: st
 
   return (
     <PublicShell>
-      <main className="mx-auto max-w-3xl px-5 py-14">
-        <h1 className="mb-5 font-serif text-3xl text-blue-900">{item.name}</h1>
+      <main className="mx-auto max-w-3xl px-5 py-10 md:py-14">
+        <h1 className="mb-5 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">{item.name}</h1>
         {item.photo_url && (
           // eslint-disable-next-line @next/next/no-img-element
           <img

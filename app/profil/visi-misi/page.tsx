@@ -3,8 +3,8 @@ import PublicShell from "@/components/PublicShell";
 export default function VisiMisiPage() {
   return (
     <PublicShell>
-      <main className="mx-auto max-w-3xl px-5 py-14">
-        <h1 className="mb-7 font-serif text-3xl text-blue-900">Visi & Misi</h1>
+      <main className="mx-auto max-w-3xl px-5 py-10 md:py-14">
+        <h1 className="mb-7 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Visi & Misi</h1>
 
         <section className="mb-9 rounded-md border border-gray-200 bg-blue-100 p-6">
           <h2 className="mb-2 text-[13px] font-semibold uppercase tracking-wide text-blue-700">

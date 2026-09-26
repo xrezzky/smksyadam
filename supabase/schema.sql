@@ -153,6 +153,15 @@ create table if not exists school_settings (
   constraint school_settings_singleton check (id = 1)
 );
 
+-- ---------- ABOUT IMAGES (foto section "Tentang" di homepage — terpisah dari hero) ----------
+create table if not exists about_images (
+  id uuid primary key default uuid_generate_v4(),
+  image_url text not null,
+  caption text,
+  display_order int not null default 0,
+  created_at timestamptz not null default now()
+);
+
 -- ---------- SOCIAL LINKS ----------
 create table if not exists social_links (
   id uuid primary key default uuid_generate_v4(),
@@ -184,6 +193,7 @@ alter table gallery enable row level security;
 alter table ppdb enable row level security;
 alter table school_settings enable row level security;
 alter table social_links enable row level security;
+alter table about_images enable row level security;
 
 -- Helper: cek apakah user login adalah admin berstatus approved
 create or replace function is_admin() returns boolean as $$
@@ -282,6 +292,9 @@ create policy "settings_admin_all" on school_settings for all using (is_admin())
 
 create policy "social_public_read" on social_links for select using (true);
 create policy "social_admin_all" on social_links for all using (is_admin()) with check (is_admin());
+
+create policy "about_images_public_read" on about_images for select using (true);
+create policy "about_images_admin_all" on about_images for all using (is_admin()) with check (is_admin());
 
 -- ==========================================================
 -- Catatan setup admin pertama (owner):

@@ -8,12 +8,12 @@ export type Department = {
 
 export default function JurusanCard({ item, index }: { item: Department; index: number }) {
   return (
-    <div className="rounded-md border border-gray-200 bg-white p-5.5">
-      <div className="mb-3.5 flex h-10.5 w-10.5 items-center justify-center rounded-md bg-blue-100 font-serif font-bold text-blue-700">
+    <div className="rounded-md border border-gray-200 bg-white p-5 transition-shadow hover:shadow-sm sm:p-[22px]">
+      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-md bg-blue-100 font-serif font-bold text-blue-700">
         J{index + 1}
       </div>
-      <h3 className="mb-1.5 text-base">{item.name}</h3>
-      <p className="mb-3 text-[13.5px] text-gray-500">
+      <h3 className="mb-1.5 text-base font-semibold text-ink">{item.name}</h3>
+      <p className="mb-3 text-[14px] leading-relaxed text-gray-500">
         {item.short_description ?? "Data jurusan akan diperbarui."}
       </p>
       <Link href={`/akademik/jurusan/${item.slug}`} className="text-[13.5px] font-semibold text-blue-700">

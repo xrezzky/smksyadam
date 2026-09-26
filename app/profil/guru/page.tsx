@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import PublicShell from "@/components/PublicShell";
+import EmptyState from "@/components/EmptyState";
 
 export default async function GuruPage() {
   const supabase = createClient();
@@ -10,8 +11,8 @@ export default async function GuruPage() {
 
   return (
     <PublicShell>
-      <main className="mx-auto max-w-6xl px-5 py-14">
-        <h1 className="mb-7 font-serif text-3xl text-blue-900">Guru & Tenaga Kependidikan</h1>
+      <main className="mx-auto max-w-6xl px-5 py-10 md:py-14">
+        <h1 className="mb-7 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Guru & Tenaga Kependidikan</h1>
 
         {teachers && teachers.length > 0 ? (
           <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4">
@@ -36,7 +37,7 @@ export default async function GuruPage() {
             ))}
           </div>
         ) : (
-          <p className="text-[14px] text-gray-500">Data guru akan diperbarui.</p>
+          <EmptyState icon="🧑‍🏫" message="Data guru akan diperbarui." />
         )}
       </main>
     </PublicShell>
