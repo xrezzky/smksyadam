@@ -162,11 +162,17 @@ export default function SettingsForm({ initial }: { initial: Settings }) {
           Google Maps (URL embed)
         </label>
         <p className="mb-2 text-[12px] text-gray-500">
-          Harus link <strong>embed</strong>, bukan link share biasa. Cara ambil: buka Google
-          Maps → cari lokasi sekolah → tombol <strong>Share/Bagikan</strong> → tab{" "}
-          <strong>Embed a map</strong> → copy bagian di dalam <code>src=&quot;...&quot;</code>{" "}
-          saja (formatnya diawali <code>https://www.google.com/maps/embed?pb=...</code>). Link
-          yang diawali <code>https://share.google/...</code> tidak akan tampil.
+          Harus link <strong>embed</strong>, bukan link share biasa (yang diawali{" "}
+          <code>https://share.google/...</code> atau <code>https://maps.app.goo.gl/...</code>{" "}
+          tidak akan tampil). Dua format ini didukung:
+          <br />
+          1) <code>https://www.google.com/maps/embed?pb=...</code> — dari tombol{" "}
+          <strong>Share/Bagikan → Embed a map</strong>, copy bagian di dalam{" "}
+          <code>src=&quot;...&quot;</code>.
+          <br />
+          2) <code>https://maps.google.com/maps?q=...&amp;output=embed</code> — buka Google Maps,
+          cari lokasi sekolah persis, lalu copy link dari address bar dan tambahkan{" "}
+          <code>&amp;output=embed</code> di akhirnya.
         </p>
         <input {...field("google_maps_url")} placeholder="https://www.google.com/maps/embed?pb=..." className="w-full rounded-md border border-gray-200 px-3 py-2 text-sm" />
       </div>

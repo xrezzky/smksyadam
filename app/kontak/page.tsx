@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 // 3) pencarian "nama sekolah + alamat" (jauh lebih akurat daripada alamat mentah,
 //    karena biasanya langsung ketemu titik sekolah di Google Maps)
 function resolveMapEmbedSrc(googleMapsUrl: string | null | undefined, query: string | null) {
-  if (googleMapsUrl && googleMapsUrl.includes("/maps/embed")) {
+  if (googleMapsUrl && (googleMapsUrl.includes("/maps/embed") || googleMapsUrl.includes("output=embed"))) {
     return googleMapsUrl;
   }
 
