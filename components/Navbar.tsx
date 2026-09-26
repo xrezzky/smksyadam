@@ -49,21 +49,40 @@ export default function Navbar({
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
-  // Bayangan tipis muncul begitu halaman mulai discroll — bikin navbar terasa "mengambang"
+  // Satu listener scroll untuk tiga hal: bayangan navbar, progress bar, dan tombol "ke atas"
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      const scrollY = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setScrolled(scrollY > 8);
+      setShowBackToTop(scrollY > 480);
+      setProgress(max > 0 ? Math.min(100, (scrollY / max) * 100) : 0);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   return (
-    <header
-      className={`sticky top-0 z-50 border-b bg-white/95 backdrop-blur transition-shadow duration-300 ${
-        scrolled ? "border-gray-200 shadow-md" : "border-transparent shadow-none"
-      }`}
-    >
+    <>
+      <header
+        className={`sticky top-0 z-50 border-b bg-white/95 backdrop-blur transition-shadow duration-300 ${
+          scrolled ? "border-gray-200 shadow-md" : "border-transparent shadow-none"
+        }`}
+      >
+        {/* Progress bar tipis — menunjukkan seberapa jauh halaman sudah dibaca/discroll */}
+        <div
+          className="absolute inset-x-0 top-full h-[3px] bg-accent-green transition-[width] duration-150 ease-out"
+          style={{ width: `${progress}%` }}
+          aria-hidden="true"
+        />
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
         <Link href="/" className="flex flex-shrink-0 items-center gap-2.5">
           {logoUrl ? (
@@ -180,6 +199,17 @@ export default function Navbar({
           </Link>
         </div>
       </nav>
-    </header>
+      </header>
+
+      <button
+        aria-label="Kembali ke atas"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className={`btn-pop fixed bottom-6 right-5 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-blue-700 text-lg text-white shadow-lg transition-all duration-300 hover:bg-blue-900 ${
+          showBackToTop ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
+        }`}
+      >
+        ↑
+      </button>
+    </>
   );
 }

@@ -175,13 +175,45 @@ a:hover .arrow-nudge,
   transform: scale(1.06);
 }
 
+/* Transisi halus tiap kali pindah halaman (dipakai lewat app/template.tsx) */
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-page-fade {
+  animation: page-fade-in 0.45s ease-out both;
+}
+
+/* Zoom-in halus untuk foto yang dibuka di lightbox galeri */
+@keyframes lightbox-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-lightbox-in {
+  animation: lightbox-in 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up,
   .animate-fade-in,
   .animate-float-slow,
   .animate-float-slower,
   .title-underline,
-  .shimmer-cta {
+  .shimmer-cta,
+  .animate-page-fade,
+  .animate-lightbox-in {
     animation: none !important;
   }
   .card-lift:hover,

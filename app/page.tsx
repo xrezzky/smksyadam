@@ -8,6 +8,7 @@ import AboutCarousel, { type AboutImage } from "@/components/AboutCarousel";
 import Footer from "@/components/Footer";
 import EmptyState from "@/components/EmptyState";
 import Reveal from "@/components/Reveal";
+import StatsCounter, { type Stat } from "@/components/StatsCounter";
 import Link from "next/link";
 
 // Pilih jumlah kolom grid berdasarkan jumlah jurusan yang benar-benar ada,
@@ -23,25 +24,38 @@ export const revalidate = 60; // ISR — homepage di-refresh tiap 60 detik
 export default async function HomePage() {
   const supabase = createClient();
 
-  const [{ data: settings }, { data: departments }, { data: news }, { data: aboutImages }] =
-    await Promise.all([
-      supabase.from("school_settings").select("*").eq("id", 1).maybeSingle(),
-      supabase
-        .from("departments")
-        .select("slug, name, short_description")
-        .order("display_order", { ascending: true })
-        .limit(6),
-      supabase
-        .from("news")
-        .select("slug, title, excerpt, thumbnail_url, published_at, categories(name)")
-        .eq("is_published", true)
-        .order("published_at", { ascending: false })
-        .limit(3),
-      supabase
-        .from("about_images")
-        .select("id, image_url, caption")
-        .order("display_order", { ascending: true }),
-    ]);
+  const [
+    { data: settings },
+    { data: departments },
+    { data: news },
+    { data: aboutImages },
+    { count: departmentsTotal },
+    { count: newsTotal },
+    { count: announcementsTotal },
+  ] = await Promise.all([
+    supabase.from("school_settings").select("*").eq("id", 1).maybeSingle(),
+    supabase
+      .from("departments")
+      .select("slug, name, short_description")
+      .order("display_order", { ascending: true })
+      .limit(6),
+    supabase
+      .from("news")
+      .select("slug, title, excerpt, thumbnail_url, published_at, categories(name)")
+      .eq("is_published", true)
+      .order("published_at", { ascending: false })
+      .limit(3),
+    supabase
+      .from("about_images")
+      .select("id, image_url, caption")
+      .order("display_order", { ascending: true }),
+    supabase.from("departments").select("*", { count: "exact", head: true }),
+    supabase.from("news").select("*", { count: "exact", head: true }).eq("is_published", true),
+    supabase
+      .from("announcements")
+      .select("*", { count: "exact", head: true })
+      .eq("is_published", true),
+  ]);
 
   const departmentList: Department[] = departments ?? [];
   const newsList: NewsItem[] = (news ?? []).map((n: any) => ({
@@ -50,10 +64,26 @@ export default async function HomePage() {
   }));
   const aboutImageList: AboutImage[] = aboutImages ?? [];
 
+  // Statistik singkat di bawah Hero — semua angka nyata dari data yang ada, bukan angka karangan
+  const yearsActive = new Date().getFullYear() - 2011;
+  const stats: Stat[] = [
+    { label: "Tahun Beroperasi", value: yearsActive, suffix: "+" },
+    { label: "Kompetensi Keahlian", value: departmentsTotal ?? departmentList.length },
+    { label: "Berita Dipublikasikan", value: newsTotal ?? newsList.length },
+    { label: "Pengumuman", value: announcementsTotal ?? 0 },
+  ];
+
   return (
     <>
       <Navbar schoolName={settings?.school_name ?? undefined} logoUrl={settings?.logo_url} />
       <Hero heroImageUrl={settings?.hero_image_url} />
+
+      {/* SECTION — Statistik singkat */}
+      <section className="bg-white py-8 md:py-10">
+        <Reveal className="mx-auto max-w-6xl px-5">
+          <StatsCounter stats={stats} />
+        </Reveal>
+      </section>
 
       {/* SECTION 1 — Tentang Sekolah */}
       <section className="py-10 md:py-14">

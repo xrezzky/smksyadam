@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 export default function Hero({
   heroImageUrl,
@@ -7,20 +10,43 @@ export default function Hero({
   heroImageUrl?: string | null;
   description?: string | null;
 }) {
+  const bgRef = useRef<HTMLDivElement | null>(null);
+
+  // Parallax halus: foto latar bergerak sedikit lebih lambat dari scroll, dibatasi biar tetap subtle
+  useEffect(() => {
+    if (!heroImageUrl) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        if (bgRef.current) {
+          const offset = Math.min(window.scrollY * 0.2, 40);
+          bgRef.current.style.transform = `translate3d(0, ${offset}px, 0)`;
+        }
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, [heroImageUrl]);
+
   return (
     <>
-      <section
-        className="relative overflow-hidden bg-gradient-to-br from-blue-100 to-white py-8 sm:py-11 md:py-14"
-        style={
-          heroImageUrl
-            ? {
-                backgroundImage: `url(${heroImageUrl})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }
-            : undefined
-        }
-      >
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-100 to-white py-8 sm:py-11 md:py-14">
+        {heroImageUrl && (
+          <div
+            ref={bgRef}
+            className="pointer-events-none absolute -inset-y-10 inset-x-0 bg-cover bg-center will-change-transform"
+            style={{ backgroundImage: `url(${heroImageUrl})` }}
+            aria-hidden="true"
+          />
+        )}
+
         {/* Overlay tipis di atas foto supaya tone foto seragam — kontras teks tetap dijamin oleh kartu solid, bukan overlay ini */}
         {heroImageUrl && <div className="absolute inset-0 bg-blue-900/25" aria-hidden="true" />}
 
