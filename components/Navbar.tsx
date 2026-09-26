@@ -51,12 +51,12 @@ export default function Navbar({
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
-        <Link href="/" className="flex items-center gap-2.5">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
+        <Link href="/" className="flex flex-shrink-0 items-center gap-2.5">
           {logoUrl ? (
             // Logo dianggap sudah memuat nama sekolah — tidak perlu diulang jadi teks di sampingnya
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={logoUrl} alt={schoolName} className="h-11 w-auto max-w-[220px] object-contain" />
+            <img src={logoUrl} alt={schoolName} className="h-12 w-auto max-w-[220px] object-contain" />
           ) : (
             <>
               <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-blue-700 font-serif text-sm font-bold text-white">
@@ -70,12 +70,12 @@ export default function Navbar({
           )}
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm md:flex">
+        <nav className="hidden items-center gap-7 text-sm md:flex">
           {menu.map((item) => (
-            <div key={item.label} className="group relative">
+            <div key={item.label} className="group relative flex h-full items-center">
               <Link
                 href={item.href}
-                className="border-b-2 border-transparent py-1 text-blue-900 hover:border-blue-500"
+                className="border-b-2 border-transparent py-2 text-blue-900 hover:border-blue-500"
               >
                 {item.label}
               </Link>
@@ -98,7 +98,7 @@ export default function Navbar({
 
         <Link
           href="/ppdb"
-          className="hidden rounded-md bg-blue-700 px-[18px] py-2 text-sm font-semibold text-white hover:bg-blue-900 md:inline-block"
+          className="hidden flex-shrink-0 rounded-md bg-blue-700 px-[18px] py-2.5 text-sm font-semibold text-white hover:bg-blue-900 md:inline-block"
         >
           Informasi PPDB
         </Link>

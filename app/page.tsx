@@ -6,7 +6,16 @@ import NewsCard, { type NewsItem } from "@/components/NewsCard";
 import JurusanCard, { type Department } from "@/components/JurusanCard";
 import AboutCarousel, { type AboutImage } from "@/components/AboutCarousel";
 import Footer from "@/components/Footer";
+import EmptyState from "@/components/EmptyState";
 import Link from "next/link";
+
+// Pilih jumlah kolom grid berdasarkan jumlah jurusan yang benar-benar ada,
+// supaya baris terakhir tidak pernah "menggantung" (mis. 3 lalu 1 sendirian).
+function jurusanGridClass(count: number) {
+  if (count <= 2) return "sm:grid-cols-2";
+  if (count === 4) return "sm:grid-cols-2 lg:grid-cols-4";
+  return "sm:grid-cols-2 md:grid-cols-3";
+}
 
 export const revalidate = 60; // ISR — homepage di-refresh tiap 60 detik
 
@@ -47,7 +56,7 @@ export default async function HomePage() {
 
       {/* SECTION 1 — Tentang Sekolah */}
       <section className="py-10 md:py-14">
-        <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 px-5 md:grid-cols-[1.1fr_0.9fr] md:gap-12">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 px-5 md:grid-cols-[1.1fr_0.9fr] md:gap-10">
           <div>
             <SectionTitle eyebrow="Tentang Kami" title="Tentang SMK Syadam" />
             <p className="mb-5 max-w-[52ch] text-[15px] leading-relaxed text-gray-500">
@@ -84,13 +93,17 @@ export default async function HomePage() {
         <div className="mx-auto max-w-6xl px-5">
           <SectionTitle eyebrow="Akademik" title="Kompetensi Keahlian" />
           {departmentList.length > 0 ? (
-            <div className="mt-6 grid grid-cols-1 gap-[18px] sm:grid-cols-2 md:grid-cols-3">
+            <div
+              className={`mt-6 grid grid-cols-1 gap-[18px] ${jurusanGridClass(departmentList.length)}`}
+            >
               {departmentList.map((d, i) => (
                 <JurusanCard key={d.slug} item={d} index={i} />
               ))}
             </div>
           ) : (
-            <p className="mt-6 text-[14px] text-gray-500">Data jurusan akan diperbarui.</p>
+            <div className="mt-6">
+              <EmptyState icon="🎓" message="Data jurusan akan diperbarui." />
+            </div>
           )}
         </div>
       </section>
@@ -111,9 +124,8 @@ export default async function HomePage() {
               ))}
             </div>
           ) : (
-            <div className="mt-5 flex flex-col items-center gap-2 rounded-xl border border-dashed border-gray-200 bg-gray-50 py-10 text-center">
-              <span className="text-2xl">📰</span>
-              <p className="text-[14px] text-gray-500">Belum ada berita yang dipublikasikan.</p>
+            <div className="mt-5">
+              <EmptyState icon="📰" message="Belum ada berita yang dipublikasikan." />
             </div>
           )}
         </div>
@@ -121,7 +133,7 @@ export default async function HomePage() {
 
       {/* SECTION 11 — PPDB CTA */}
       <div className="mx-auto max-w-6xl px-5 pb-10 md:pb-14">
-        <div className="rounded-xl bg-blue-900 p-6 text-white sm:p-8 md:p-11">
+        <div className="rounded-xl bg-blue-900 p-6 text-white sm:p-8 md:p-10">
           <h2 className="mb-2.5 font-serif text-[clamp(22px,3vw,28px)]">
             Penerimaan Peserta Didik Baru
           </h2>

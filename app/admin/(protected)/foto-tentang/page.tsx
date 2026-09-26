@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import AboutImageUploadForm from "@/components/admin/AboutImageUploadForm";
 import DeleteButton from "@/components/admin/DeleteButton";
@@ -36,7 +37,12 @@ export default async function AdminFotoTentangPage() {
                 <span className="truncate text-[12.5px] text-gray-500">
                   {g.caption || "-"} · urutan {g.display_order}
                 </span>
-                <DeleteButton table="about_images" id={g.id} />
+                <div className="flex flex-shrink-0 gap-3 text-[13px]">
+                  <Link href={`/admin/foto-tentang/${g.id}`} className="font-semibold text-blue-700">
+                    Edit
+                  </Link>
+                  <DeleteButton table="about_images" id={g.id} />
+                </div>
               </div>
             </div>
           ))}

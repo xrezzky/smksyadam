@@ -10,7 +10,7 @@ export default function Hero({
   return (
     <>
       <section
-        className="relative overflow-hidden bg-gradient-to-br from-blue-100 to-white py-9 sm:py-12 md:py-16"
+        className="relative overflow-hidden bg-gradient-to-br from-blue-100 to-white py-8 sm:py-11 md:py-14"
         style={
           heroImageUrl
             ? {
@@ -33,11 +33,8 @@ export default function Hero({
         )}
 
         <div className="relative mx-auto max-w-6xl px-5">
-          <div className="rounded-xl bg-white p-5 shadow-md sm:p-7 md:max-w-xl md:p-8">
-            <span className="mb-4 inline-block rounded-full border border-blue-500 bg-blue-100 px-3 py-1.5 text-xs font-semibold tracking-wide text-blue-700">
-              WEBSITE RESMI SEKOLAH
-            </span>
-            <h1 className="mb-4 font-serif text-[clamp(28px,6vw,40px)] leading-[1.15] text-blue-900">
+          <div className="rounded-xl bg-white p-6 shadow-md sm:p-7 md:max-w-xl md:p-8">
+            <h1 className="mb-3.5 font-serif text-[clamp(28px,6vw,40px)] leading-[1.2] text-blue-900">
               Selamat Datang di SMK Syadam Bojonggede
             </h1>
             <p className="mb-6 text-[15px] leading-relaxed text-gray-500">

@@ -12,7 +12,7 @@ export default function Footer({ settings }: { settings?: Settings }) {
   return (
     <footer className="border-t border-gray-200 bg-gray-50 pb-5 pt-8 md:pt-10">
       <div className="mx-auto max-w-6xl px-5">
-        <div className="mb-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-[1.3fr_1fr_1fr] md:gap-8">
+        <div className="mb-7 grid grid-cols-1 gap-7 sm:grid-cols-2 md:grid-cols-[1.3fr_1fr_1fr] md:gap-10">
           <div>
             {settings?.logo_url ? (
               // Logo dianggap sudah memuat nama sekolah — tidak diulang jadi teks
