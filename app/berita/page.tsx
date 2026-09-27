@@ -24,7 +24,11 @@ export default async function BeritaListPage() {
 
   return (
     <>
-      <Navbar schoolName={settings?.school_name ?? undefined} logoUrl={settings?.logo_url} />
+      <Navbar
+        schoolName={settings?.school_name ?? undefined}
+        logoUrl={settings?.logo_url}
+        whatsapp={settings?.whatsapp}
+      />
       <main className="mx-auto max-w-6xl px-5 py-10 md:py-14">
         <h1 className="mb-6 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Berita Sekolah</h1>
         {newsList.length > 0 ? (

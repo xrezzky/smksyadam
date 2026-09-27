@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
 
 export default async function KontakPage() {
   const supabase = createClient();
@@ -23,53 +24,110 @@ export default async function KontakPage() {
 
   return (
     <>
-      <Navbar schoolName={settings?.school_name ?? undefined} logoUrl={settings?.logo_url} />
+      <Navbar
+        schoolName={settings?.school_name ?? undefined}
+        logoUrl={settings?.logo_url}
+        whatsapp={settings?.whatsapp}
+      />
       <main className="mx-auto max-w-3xl px-5 py-10 md:py-14">
-        <h1 className="mb-5 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Kontak</h1>
-        <div className="space-y-3 rounded-xl border border-gray-200 bg-white p-5 text-[15px] leading-relaxed text-gray-500 sm:p-6">
-          <p>
-            <strong className="text-ink">Alamat:</strong>{" "}
-            {settings?.address ? (
-              mapEmbedSrc ? (
-                <a
-                  href={settings.google_maps_url || mapEmbedSrc}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline decoration-gray-300 underline-offset-2 hover:text-blue-700 hover:decoration-blue-500"
-                >
-                  {settings.address}
-                </a>
-              ) : (
-                settings.address
-              )
-            ) : (
-              "[Alamat resmi sekolah]"
-            )}
-          </p>
-          <p><strong className="text-ink">Telepon:</strong> {settings?.phone ?? "[Nomor telepon]"}</p>
-          <p><strong className="text-ink">WhatsApp:</strong> {settings?.whatsapp ?? "[Nomor WhatsApp]"}</p>
-          <p><strong className="text-ink">Email:</strong> {settings?.email ?? "[Email sekolah]"}</p>
+        <Reveal>
+          <h1 className="mb-5 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Kontak</h1>
+        </Reveal>
+
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <Reveal delay={0}>
+            <div className="card-lift flex h-full items-start gap-3 rounded-md border border-gray-200 bg-white p-4">
+              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-blue-100 text-base">
+                📍
+              </span>
+              <div>
+                <div className="text-[13px] font-semibold text-ink">Alamat</div>
+                <div className="text-[14px] leading-relaxed text-gray-500">
+                  {settings?.address ? (
+                    mapEmbedSrc ? (
+                      <a
+                        href={settings.google_maps_url || mapEmbedSrc}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline decoration-gray-300 underline-offset-2 hover:text-blue-700 hover:decoration-blue-500"
+                      >
+                        {settings.address}
+                      </a>
+                    ) : (
+                      settings.address
+                    )
+                  ) : (
+                    "[Alamat resmi sekolah]"
+                  )}
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={70}>
+            <div className="card-lift flex h-full items-start gap-3 rounded-md border border-gray-200 bg-white p-4">
+              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-blue-100 text-base">
+                ☎️
+              </span>
+              <div>
+                <div className="text-[13px] font-semibold text-ink">Telepon</div>
+                <div className="text-[14px] text-gray-500">{settings?.phone ?? "[Nomor telepon]"}</div>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={140}>
+            <div className="card-lift flex h-full items-start gap-3 rounded-md border border-gray-200 bg-white p-4">
+              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-green-100 text-base">
+                💬
+              </span>
+              <div>
+                <div className="text-[13px] font-semibold text-ink">WhatsApp</div>
+                <div className="text-[14px] text-gray-500">
+                  {settings?.whatsapp ?? "[Nomor WhatsApp]"}
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={210}>
+            <div className="card-lift flex h-full items-start gap-3 rounded-md border border-gray-200 bg-white p-4">
+              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-blue-100 text-base">
+                ✉️
+              </span>
+              <div>
+                <div className="text-[13px] font-semibold text-ink">Email</div>
+                <div className="text-[14px] text-gray-500">{settings?.email ?? "[Email sekolah]"}</div>
+              </div>
+            </div>
+          </Reveal>
         </div>
 
         {socials && socials.length > 0 && (
-          <div className="mt-6 flex gap-4 text-sm text-blue-700">
+          <Reveal delay={260} className="mt-6 flex flex-wrap gap-4 text-sm">
             {socials.map((s: any) => (
-              <a key={s.id} href={s.url} className="font-semibold capitalize">
+              <a
+                key={s.id}
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-pop rounded-md border border-gray-200 px-3 py-1.5 font-semibold capitalize text-blue-700 hover:border-blue-500 hover:bg-blue-100"
+              >
                 {s.platform}
               </a>
             ))}
-          </div>
+          </Reveal>
         )}
 
         {mapEmbedSrc && (
-          <div className="mt-8 aspect-video overflow-hidden rounded-md border border-gray-200">
+          <Reveal delay={320} className="mt-8 aspect-video overflow-hidden rounded-md border border-gray-200 shadow-sm">
             <iframe
               src={mapEmbedSrc}
               className="h-full w-full"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
-          </div>
+          </Reveal>
         )}
       </main>
       <Footer settings={settings ?? undefined} />

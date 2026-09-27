@@ -75,7 +75,11 @@ export default async function HomePage() {
 
   return (
     <>
-      <Navbar schoolName={settings?.school_name ?? undefined} logoUrl={settings?.logo_url} />
+      <Navbar
+        schoolName={settings?.school_name ?? undefined}
+        logoUrl={settings?.logo_url}
+        whatsapp={settings?.whatsapp}
+      />
       <Hero heroImageUrl={settings?.hero_image_url} />
 
       {/* SECTION — Statistik singkat */}

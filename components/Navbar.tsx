@@ -43,9 +43,11 @@ const menu = [
 export default function Navbar({
   schoolName = "SMK Syadam",
   logoUrl,
+  whatsapp,
 }: {
   schoolName?: string;
   logoUrl?: string | null;
+  whatsapp?: string | null;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -210,6 +212,22 @@ export default function Navbar({
       >
         ↑
       </button>
+
+      {/* Tombol WhatsApp mengambang — hanya tampil kalau admin sudah mengisi nomor WhatsApp sekolah */}
+      {whatsapp && (
+        <a
+          href={`https://wa.me/${whatsapp.replace(/[^0-9]/g, "").replace(/^0/, "62")}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Hubungi via WhatsApp"
+          className="btn-pop fixed bottom-6 left-5 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg hover:bg-[#1ebc59]"
+        >
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#25D366] opacity-40" />
+          <svg viewBox="0 0 24 24" fill="currentColor" className="relative h-6 w-6">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm5.78 14.09c-.24.68-1.4 1.31-1.93 1.36-.49.05-.98.25-3.31-.7-2.79-1.15-4.58-3.99-4.72-4.18-.14-.19-1.13-1.5-1.13-2.86 0-1.36.72-2.02.97-2.3.25-.27.55-.34.73-.34.19 0 .37 0 .53.01.17.01.4-.06.62.48.24.58.81 2 .88 2.14.07.14.12.31.02.5-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.3 2.33 1.44.29.15.46.13.63-.07.17-.2.72-.84.91-1.13.19-.29.38-.24.63-.15.26.1 1.65.78 1.93.92.29.15.48.22.55.34.07.13.07.72-.17 1.4Z" />
+          </svg>
+        </a>
+      )}
     </>
   );
 }

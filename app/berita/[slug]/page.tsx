@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default async function BeritaDetailPage({ params }: { params: { slug: string } }) {
@@ -27,24 +28,42 @@ export default async function BeritaDetailPage({ params }: { params: { slug: str
 
   return (
     <>
-      <Navbar schoolName={settings?.school_name ?? undefined} logoUrl={settings?.logo_url} />
+      <Navbar
+        schoolName={settings?.school_name ?? undefined}
+        logoUrl={settings?.logo_url}
+        whatsapp={settings?.whatsapp}
+      />
       <main className="mx-auto max-w-3xl px-5 py-10 md:py-14">
-        {item.categories?.name && (
-          <div className="mb-2 text-[12.5px] font-semibold text-accent-green">
-            {item.categories.name}
-          </div>
-        )}
-        <h1 className="mb-2 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">{item.title}</h1>
-        {date && <div className="mb-6 text-sm text-gray-500">{date}</div>}
+        <Link
+          href="/berita"
+          className="group mb-5 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-blue-700"
+        >
+          <span className="arrow-nudge inline-block rotate-180">→</span> Kembali ke Berita
+        </Link>
+
+        <div className="animate-fade-in-up">
+          {item.categories?.name && (
+            <div className="mb-2 text-[12.5px] font-semibold text-accent-green">
+              {item.categories.name}
+            </div>
+          )}
+          <h1 className="mb-2 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">{item.title}</h1>
+          {date && <div className="mb-6 text-sm text-gray-500">{date}</div>}
+        </div>
+
         {item.thumbnail_url && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={item.thumbnail_url}
             alt={item.title}
-            className="mb-7 w-full rounded-md object-cover"
+            className="animate-fade-in mb-7 w-full rounded-md object-cover"
+            style={{ animationDelay: "120ms" }}
           />
         )}
-        <div className="whitespace-pre-line text-[15.5px] leading-relaxed text-ink">
+        <div
+          className="animate-fade-in-up whitespace-pre-line text-[15.5px] leading-relaxed text-ink"
+          style={{ animationDelay: "200ms" }}
+        >
           {item.content}
         </div>
       </main>
