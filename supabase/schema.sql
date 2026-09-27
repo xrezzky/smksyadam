@@ -38,6 +38,7 @@ create table if not exists news (
   author_id uuid references profiles(id) on delete set null,
   is_published boolean not null default false,
   published_at timestamptz,
+  source_url text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -103,6 +104,18 @@ create table if not exists achievements (
   year int,
   photo_url text,
   description text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+-- ---------- EXTRACURRICULARS ----------
+
+create table if not exists extracurriculars (
+  id uuid primary key default uuid_generate_v4(),
+  name text not null,
+  photo_url text,
+  description text,
+  display_order int not null default 0,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -277,6 +290,9 @@ create policy "departments_admin_all" on departments for all using (is_admin()) 
 
 create policy "achievements_public_read" on achievements for select using (true);
 create policy "achievements_admin_all" on achievements for all using (is_admin()) with check (is_admin());
+
+create policy "extracurriculars_public_read" on extracurriculars for select using (true);
+create policy "extracurriculars_admin_all" on extracurriculars for all using (is_admin()) with check (is_admin());
 
 create policy "gallery_categories_public_read" on gallery_categories for select using (true);
 create policy "gallery_categories_admin_all" on gallery_categories for all using (is_admin()) with check (is_admin());

@@ -19,6 +19,7 @@ export default async function EditBeritaPage({ params }: { params: { id: string 
           excerpt: item.excerpt ?? "",
           content: item.content,
           thumbnail_url: item.thumbnail_url ?? "",
+          source_url: item.source_url ?? "",
           is_published: item.is_published,
         }}
       />

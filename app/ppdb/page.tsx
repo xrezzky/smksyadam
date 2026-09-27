@@ -11,11 +11,7 @@ export default async function PpdbPage() {
 
   return (
     <>
-      <Navbar
-        schoolName={settings?.school_name ?? undefined}
-        logoUrl={settings?.logo_url}
-        whatsapp={settings?.whatsapp}
-      />
+      <Navbar schoolName={settings?.school_name ?? undefined} logoUrl={settings?.logo_url} />
       <main className="mx-auto max-w-3xl px-5 py-10 md:py-14">
         <h1 className="mb-5 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">
           Penerimaan Peserta Didik Baru

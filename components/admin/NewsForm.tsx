@@ -12,6 +12,7 @@ type NewsFormValues = {
   excerpt: string;
   content: string;
   thumbnail_url: string;
+  source_url: string;
   is_published: boolean;
 };
 
@@ -35,6 +36,7 @@ export default function NewsForm({ initial }: { initial?: NewsFormValues }) {
       excerpt: "",
       content: "",
       thumbnail_url: "",
+      source_url: "",
       is_published: false,
     }
   );
@@ -69,6 +71,7 @@ export default function NewsForm({ initial }: { initial?: NewsFormValues }) {
       excerpt: values.excerpt.trim() || null,
       content: values.content.trim(),
       thumbnail_url: values.thumbnail_url || null,
+      source_url: values.source_url.trim() || null,
       is_published: values.is_published,
       published_at: values.is_published ? new Date().toISOString() : null,
     };
@@ -163,6 +166,23 @@ export default function NewsForm({ initial }: { initial?: NewsFormValues }) {
         )}
         <input type="file" accept="image/*" onChange={handleThumbnailChange} className="text-sm" />
         {uploading && <p className="mt-1 text-xs text-gray-500">Mengunggah...</p>}
+      </div>
+
+      <div>
+        <label className="mb-1.5 block text-[13px] font-medium text-ink">
+          Sumber Berita <span className="font-normal text-gray-500">(opsional)</span>
+        </label>
+        <input
+          type="url"
+          value={values.source_url}
+          onChange={(e) => setValues((v) => ({ ...v, source_url: e.target.value }))}
+          placeholder="https://..."
+          className="w-full rounded-md border border-gray-200 px-3 py-2 text-sm"
+        />
+        <p className="mt-1 text-[12px] text-gray-500">
+          Isi kalau berita ini dikutip/diambil dari media atau situs lain. Akan tampil sebagai
+          link "Sumber" di halaman detail berita.
+        </p>
       </div>
 
       <label className="flex items-center gap-2 text-[13.5px]">

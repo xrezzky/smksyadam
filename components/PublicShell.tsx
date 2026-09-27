@@ -12,11 +12,7 @@ export default async function PublicShell({ children }: { children: React.ReactN
 
   return (
     <>
-      <Navbar
-        schoolName={settings?.school_name ?? undefined}
-        logoUrl={settings?.logo_url}
-        whatsapp={settings?.whatsapp}
-      />
+      <Navbar schoolName={settings?.school_name ?? undefined} logoUrl={settings?.logo_url} />
       {children}
       <Footer settings={settings ?? undefined} />
     </>

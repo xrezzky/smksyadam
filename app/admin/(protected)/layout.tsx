@@ -12,6 +12,7 @@ const links = [
   { href: "/admin/galeri", label: "Galeri" },
   { href: "/admin/guru", label: "Guru" },
   { href: "/admin/jurusan", label: "Jurusan" },
+  { href: "/admin/ekstrakurikuler", label: "Ekstrakurikuler" },
   { href: "/admin/prestasi", label: "Prestasi" },
   { href: "/admin/ppdb", label: "PPDB" },
   { href: "/admin/pengaturan", label: "Pengaturan" },
