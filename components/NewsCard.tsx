@@ -21,12 +21,16 @@ export default function NewsCard({ item }: { item: NewsItem }) {
   return (
     <Link
       href={`/berita/${item.slug}`}
-      className="block overflow-hidden rounded-md border border-gray-200 transition hover:border-blue-500"
+      className="card-lift group block overflow-hidden rounded-md border border-gray-200 hover:border-blue-500"
     >
-      <div className="flex aspect-video items-center justify-center border-b border-gray-200 bg-gray-50 text-xs text-gray-500">
+      <div className="flex aspect-video items-center justify-center overflow-hidden border-b border-gray-200 bg-gray-50 text-xs text-gray-500">
         {item.thumbnail_url ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={item.thumbnail_url} alt={item.title} className="h-full w-full object-cover" />
+          <img
+            src={item.thumbnail_url}
+            alt={item.title}
+            className="img-zoom h-full w-full object-cover"
+          />
         ) : (
           "Thumbnail berita"
         )}
@@ -37,7 +41,9 @@ export default function NewsCard({ item }: { item: NewsItem }) {
             {item.category_name}
           </div>
         )}
-        <h3 className="mb-1.5 text-[15.5px] font-medium leading-snug text-ink">{item.title}</h3>
+        <h3 className="mb-1.5 text-[15.5px] font-medium leading-snug text-ink transition-colors duration-200 group-hover:text-blue-700">
+          {item.title}
+        </h3>
         {date && <div className="mb-2 text-xs text-gray-500">{date}</div>}
         {item.excerpt && <p className="text-[14px] leading-relaxed text-gray-500">{item.excerpt}</p>}
       </div>
