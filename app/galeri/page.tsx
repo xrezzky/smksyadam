@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import PublicShell from "@/components/PublicShell";
 import EmptyState from "@/components/EmptyState";
+import { ImageIcon } from "@/components/icons";
 import GaleriGrid from "@/components/GaleriGrid";
 
 export const revalidate = 60;
@@ -20,7 +21,7 @@ export default async function GaleriPage() {
         {items && items.length > 0 ? (
           <GaleriGrid items={items} />
         ) : (
-          <EmptyState icon="🖼️" message="Belum ada foto di galeri." />
+          <EmptyState icon={<ImageIcon className="h-6 w-6" />} message="Belum ada foto di galeri." />
         )}
       </main>
     </PublicShell>

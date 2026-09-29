@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { CheckIcon } from "@/components/icons";
 
 export default function ShareButtons({ title }: { title: string }) {
   const [copied, setCopied] = useState(false);
@@ -37,7 +38,9 @@ export default function ShareButtons({ title }: { title: string }) {
         className="btn-pop relative flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-[13px] font-semibold text-gray-600 hover:bg-gray-200 dark:bg-white/10 dark:text-gray-300 dark:hover:bg-white/20"
       >
         {copied ? (
-          <span className="animate-fade-in">Tersalin! ✓</span>
+          <span className="animate-fade-in flex items-center gap-1">
+            Tersalin! <CheckIcon className="h-3.5 w-3.5" strokeWidth={2.4} />
+          </span>
         ) : (
           <span>Salin Tautan</span>
         )}

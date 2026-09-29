@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import PublicShell from "@/components/PublicShell";
 import EmptyState from "@/components/EmptyState";
+import { MegaphoneIcon } from "@/components/icons";
 import Reveal from "@/components/Reveal";
 
 export const revalidate = 60;
@@ -50,7 +51,7 @@ export default async function PengumumanPage() {
             })}
           </div>
         ) : (
-          <EmptyState icon="📢" message="Belum ada pengumuman." />
+          <EmptyState icon={<MegaphoneIcon className="h-6 w-6" />} message="Belum ada pengumuman." />
         )}
       </main>
     </PublicShell>

@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import PublicShell from "@/components/PublicShell";
 import EmptyState from "@/components/EmptyState";
+import { TeacherIcon } from "@/components/icons";
 
 export default async function GuruPage() {
   const supabase = createClient();
@@ -37,7 +38,7 @@ export default async function GuruPage() {
             ))}
           </div>
         ) : (
-          <EmptyState icon="🧑‍🏫" message="Data guru akan diperbarui." />
+          <EmptyState icon={<TeacherIcon className="h-6 w-6" />} message="Data guru akan diperbarui." />
         )}
       </main>
     </PublicShell>

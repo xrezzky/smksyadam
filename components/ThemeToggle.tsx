@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SunIcon, MoonIcon } from "@/components/icons";
 
 export default function ThemeToggle() {
   const [dark, setDark] = useState(false);
@@ -35,18 +36,18 @@ export default function ThemeToggle() {
       className="btn-pop relative flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-blue-900 hover:bg-blue-100 dark:text-blue-200 dark:hover:bg-white/10"
     >
       <span
-        className={`absolute text-base transition-all duration-300 ${
+        className={`absolute transition-all duration-300 ${
           dark ? "-rotate-90 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"
         }`}
       >
-        ☀️
+        <SunIcon className="h-[18px] w-[18px]" />
       </span>
       <span
-        className={`absolute text-base transition-all duration-300 ${
+        className={`absolute transition-all duration-300 ${
           dark ? "rotate-0 scale-100 opacity-100" : "rotate-90 scale-0 opacity-0"
         }`}
       >
-        🌙
+        <MoonIcon className="h-[18px] w-[18px]" />
       </span>
     </button>
   );

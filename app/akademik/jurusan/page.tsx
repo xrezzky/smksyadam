@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import PublicShell from "@/components/PublicShell";
 import JurusanCard from "@/components/JurusanCard";
 import EmptyState from "@/components/EmptyState";
+import { GraduationCapIcon } from "@/components/icons";
 
 export const revalidate = 60;
 
@@ -23,7 +24,7 @@ export default async function JurusanListPage() {
             ))}
           </div>
         ) : (
-          <EmptyState icon="🎓" message="Data jurusan akan diperbarui." />
+          <EmptyState icon={<GraduationCapIcon className="h-6 w-6" />} message="Data jurusan akan diperbarui." />
         )}
       </main>
     </PublicShell>

@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NewsCard, { type NewsItem } from "@/components/NewsCard";
 import EmptyState from "@/components/EmptyState";
+import { NewspaperIcon } from "@/components/icons";
 
 export const revalidate = 60;
 
@@ -44,7 +45,7 @@ export default async function BeritaListPage() {
             ))}
           </div>
         ) : (
-          <EmptyState icon="📰" message="Belum ada berita yang dipublikasikan." />
+          <EmptyState icon={<NewspaperIcon className="h-6 w-6" />} message="Belum ada berita yang dipublikasikan." />
         )}
       </main>
       <Footer settings={settings ?? undefined} />

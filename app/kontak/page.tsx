@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
+import { PinIcon, PhoneIcon, ChatIcon, MailIcon } from "@/components/icons";
 
 export default async function KontakPage() {
   const supabase = createClient();
@@ -44,7 +45,7 @@ export default async function KontakPage() {
           <Reveal delay={0}>
             <div className="card-lift flex h-full items-start gap-3 rounded-md border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
               <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-blue-100 text-base dark:bg-blue-500/15">
-                📍
+                <PinIcon className="h-[18px] w-[18px] text-blue-700 dark:text-blue-300" />
               </span>
               <div>
                 <div className="text-[13px] font-semibold text-ink dark:text-gray-100">Alamat</div>
@@ -73,7 +74,7 @@ export default async function KontakPage() {
           <Reveal delay={70}>
             <div className="card-lift flex h-full items-start gap-3 rounded-md border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
               <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-blue-100 text-base dark:bg-blue-500/15">
-                ☎️
+                <PhoneIcon className="h-[18px] w-[18px] text-blue-700 dark:text-blue-300" />
               </span>
               <div>
                 <div className="text-[13px] font-semibold text-ink dark:text-gray-100">Telepon</div>
@@ -85,7 +86,7 @@ export default async function KontakPage() {
           <Reveal delay={140}>
             <div className="card-lift flex h-full items-start gap-3 rounded-md border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
               <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-green-100 text-base dark:bg-green-500/15">
-                💬
+                <ChatIcon className="h-[18px] w-[18px] text-green-700 dark:text-green-300" />
               </span>
               <div>
                 <div className="text-[13px] font-semibold text-ink dark:text-gray-100">WhatsApp</div>
@@ -99,7 +100,7 @@ export default async function KontakPage() {
           <Reveal delay={210}>
             <div className="card-lift flex h-full items-start gap-3 rounded-md border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
               <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-md bg-blue-100 text-base dark:bg-blue-500/15">
-                ✉️
+                <MailIcon className="h-[18px] w-[18px] text-blue-700 dark:text-blue-300" />
               </span>
               <div>
                 <div className="text-[13px] font-semibold text-ink dark:text-gray-100">Email</div>

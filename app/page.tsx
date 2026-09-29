@@ -7,6 +7,7 @@ import JurusanCard, { type Department } from "@/components/JurusanCard";
 import AboutCarousel, { type AboutImage } from "@/components/AboutCarousel";
 import Footer from "@/components/Footer";
 import EmptyState from "@/components/EmptyState";
+import { GraduationCapIcon, NewspaperIcon, SchoolIcon } from "@/components/icons";
 import Reveal from "@/components/Reveal";
 import StatsCounter, { type Stat } from "@/components/StatsCounter";
 import Link from "next/link";
@@ -120,8 +121,8 @@ export default async function HomePage() {
               <AboutCarousel images={aboutImageList} />
             ) : (
               <div className="flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-blue-100 to-blue-50 p-6 text-center dark:from-gray-800 dark:to-gray-900">
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-xl shadow-sm dark:bg-gray-700">
-                  🏫
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-blue-700 shadow-sm dark:bg-gray-700 dark:text-blue-300">
+                  <SchoolIcon className="h-6 w-6" />
                 </span>
                 <p className="text-[13.5px] font-medium text-blue-900 dark:text-gray-200">Foto lingkungan sekolah</p>
                 <p className="text-[12.5px] text-blue-700/70 dark:text-blue-300/70">
@@ -151,7 +152,7 @@ export default async function HomePage() {
             </div>
           ) : (
             <div className="mt-6">
-              <EmptyState icon="🎓" message="Data jurusan akan diperbarui." />
+              <EmptyState icon={<GraduationCapIcon className="h-6 w-6" />} message="Data jurusan akan diperbarui." />
             </div>
           )}
         </div>
@@ -176,7 +177,7 @@ export default async function HomePage() {
             </div>
           ) : (
             <div className="mt-5">
-              <EmptyState icon="📰" message="Belum ada berita yang dipublikasikan." />
+              <EmptyState icon={<NewspaperIcon className="h-6 w-6" />} message="Belum ada berita yang dipublikasikan." />
             </div>
           )}
         </div>

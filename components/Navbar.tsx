@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import ThemeToggle from "@/components/ThemeToggle";
 import SearchModal from "@/components/SearchModal";
+import { SearchIcon, ArrowUpIcon } from "@/components/icons";
 
 const menu = [
   { label: "Beranda", href: "/" },
@@ -166,7 +167,7 @@ export default function Navbar({
               aria-label="Cari (Ctrl+K)"
               className="btn-pop flex h-9 w-9 items-center justify-center rounded-full text-blue-900 hover:bg-blue-100 dark:text-blue-200 dark:hover:bg-white/10"
             >
-              🔍
+              <SearchIcon className="h-[18px] w-[18px]" />
             </button>
             <ThemeToggle />
             <Link
@@ -184,7 +185,7 @@ export default function Navbar({
               aria-label="Cari"
               className="flex h-8 w-8 items-center justify-center text-blue-900 dark:text-blue-200"
             >
-              🔍
+              <SearchIcon className="h-[18px] w-[18px]" />
             </button>
             <ThemeToggle />
             <button
@@ -268,7 +269,7 @@ export default function Navbar({
           showBackToTop ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
         }`}
       >
-        ↑
+        <ArrowUpIcon className="h-5 w-5" strokeWidth={2.2} />
       </button>
 
       {/* Tombol WhatsApp mengambang — hanya tampil kalau admin sudah mengisi nomor WhatsApp sekolah */}

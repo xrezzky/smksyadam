@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import BlurImage from "@/components/BlurImage";
+import { CloseIcon, ChevronLeftIcon, ChevronRightIcon } from "@/components/icons";
 
 export type GalleryItem = {
   id: string;
@@ -67,9 +68,9 @@ export default function GaleriGrid({ items }: { items: GalleryItem[] }) {
           <button
             aria-label="Tutup"
             onClick={close}
-            className="btn-pop absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-xl text-white hover:bg-white/20"
+            className="btn-pop absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
           >
-            ✕
+            <CloseIcon className="h-5 w-5" />
           </button>
 
           {items.length > 1 && (
@@ -80,9 +81,9 @@ export default function GaleriGrid({ items }: { items: GalleryItem[] }) {
                   e.stopPropagation();
                   prev();
                 }}
-                className="btn-pop absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white hover:bg-white/20 sm:left-6"
+                className="btn-pop absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 sm:left-6"
               >
-                ‹
+                <ChevronLeftIcon className="h-6 w-6" />
               </button>
               <button
                 aria-label="Foto berikutnya"
@@ -90,9 +91,9 @@ export default function GaleriGrid({ items }: { items: GalleryItem[] }) {
                   e.stopPropagation();
                   next();
                 }}
-                className="btn-pop absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white hover:bg-white/20 sm:right-6"
+                className="btn-pop absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 sm:right-6"
               >
-                ›
+                <ChevronRightIcon className="h-6 w-6" />
               </button>
             </>
           )}

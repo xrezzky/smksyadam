@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { CheckIcon } from "@/components/icons";
+import CustomSelect from "@/components/CustomSelect";
 
 type Department = { slug: string; name: string };
 
@@ -56,9 +58,9 @@ export default function PpdbQuickForm({ departments }: { departments: Department
   if (done) {
     return (
       <div className="animate-fade-in-up flex flex-col items-center gap-3 rounded-md border border-green-200 bg-green-50 px-6 py-10 text-center dark:border-green-500/20 dark:bg-green-500/10">
-        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-2xl text-white">
+        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white">
           <span className="animate-fade-in" style={{ animationDelay: "150ms" }}>
-            ✓
+            <CheckIcon className="h-7 w-7" strokeWidth={2.4} />
           </span>
         </span>
         <h3 className="text-[16px] font-semibold text-green-800 dark:text-green-300">
@@ -134,18 +136,15 @@ export default function PpdbQuickForm({ departments }: { departments: Department
           <label className="mb-1 block text-[13px] font-medium text-ink dark:text-gray-200">
             Jurusan Diminati (opsional)
           </label>
-          <select
+          <CustomSelect
             value={departmentSlug}
-            onChange={(e) => setDepartmentSlug(e.target.value)}
-            className="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-[14px] outline-none transition-colors focus:border-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
-          >
-            <option value="">Belum tahu / semua boleh</option>
-            {departments.map((d) => (
-              <option key={d.slug} value={d.slug}>
-                {d.name}
-              </option>
-            ))}
-          </select>
+            onChange={setDepartmentSlug}
+            placeholder="Belum tahu / semua boleh"
+            options={[
+              { value: "", label: "Belum tahu / semua boleh" },
+              ...departments.map((d) => ({ value: d.slug, label: d.name })),
+            ]}
+          />
         </div>
       )}
 

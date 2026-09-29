@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@/components/icons";
 
 export type AboutImage = {
   id: string;
@@ -58,14 +59,14 @@ export default function AboutCarousel({ images }: { images: AboutImage[] }) {
             onClick={() => goTo(index - 1)}
             className="btn-pop absolute left-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-blue-900 shadow hover:bg-white"
           >
-            ‹
+            <ChevronLeftIcon className="h-4 w-4" />
           </button>
           <button
             aria-label="Foto berikutnya"
             onClick={() => goTo(index + 1)}
             className="btn-pop absolute right-2 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-blue-900 shadow hover:bg-white"
           >
-            ›
+            <ChevronRightIcon className="h-4 w-4" />
           </button>
           <div className="absolute bottom-2 left-1/2 z-20 flex -translate-x-1/2 gap-1.5">
             {images.map((img, i) => (

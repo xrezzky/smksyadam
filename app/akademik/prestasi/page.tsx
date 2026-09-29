@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import PublicShell from "@/components/PublicShell";
 import EmptyState from "@/components/EmptyState";
+import { TrophyIcon } from "@/components/icons";
 import Reveal from "@/components/Reveal";
 import BlurImage from "@/components/BlurImage";
 
@@ -42,7 +43,7 @@ export default async function PrestasiPage() {
                         className="img-zoom h-full w-full object-cover"
                       />
                     ) : (
-                      <span className="text-2xl">🏆</span>
+                      <TrophyIcon className="h-7 w-7 text-gray-300 dark:text-gray-600" />
                     )}
                   </div>
                   <div className="p-4">
@@ -70,7 +71,7 @@ export default async function PrestasiPage() {
             ))}
           </div>
         ) : (
-          <EmptyState icon="🏆" message="Data prestasi akan diperbarui." />
+          <EmptyState icon={<TrophyIcon className="h-6 w-6" />} message="Data prestasi akan diperbarui." />
         )}
       </main>
     </PublicShell>

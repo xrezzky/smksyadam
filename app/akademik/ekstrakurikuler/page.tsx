@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import PublicShell from "@/components/PublicShell";
 import EmptyState from "@/components/EmptyState";
+import { MedalIcon } from "@/components/icons";
 import Reveal from "@/components/Reveal";
 import BlurImage from "@/components/BlurImage";
 
@@ -32,8 +33,8 @@ export default async function EkstrakurikulerPage() {
                       className="img-zoom h-40 w-full object-cover"
                     />
                   ) : (
-                    <div className="flex h-40 w-full items-center justify-center bg-blue-100 text-3xl transition-transform duration-300 ease-out group-hover:scale-110 dark:bg-blue-500/10">
-                      🏅
+                    <div className="flex h-40 w-full items-center justify-center bg-blue-100 text-blue-700 transition-transform duration-300 ease-out group-hover:scale-110 dark:bg-blue-500/10 dark:text-blue-300">
+                      <MedalIcon className="h-9 w-9" />
                     </div>
                   )}
                   <div className="p-5">
@@ -51,7 +52,7 @@ export default async function EkstrakurikulerPage() {
             ))}
           </div>
         ) : (
-          <EmptyState icon="🏅" message="Data ekstrakurikuler akan diperbarui." />
+          <EmptyState icon={<MedalIcon className="h-6 w-6" />} message="Data ekstrakurikuler akan diperbarui." />
         )}
       </main>
     </PublicShell>

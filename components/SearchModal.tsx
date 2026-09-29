@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { SearchIcon, CloseIcon } from "@/components/icons";
 
 type Result = { type: string; title: string; excerpt: string; href: string };
 
@@ -76,7 +77,9 @@ export default function SearchModal({ open, onClose }: { open: boolean; onClose:
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-2.5 border-b border-gray-200 px-4 py-3 dark:border-gray-800">
-          <span className="text-gray-400">🔍</span>
+          <span className="text-gray-400">
+            <SearchIcon className="h-[18px] w-[18px]" />
+          </span>
           <input
             ref={inputRef}
             value={query}
@@ -89,7 +92,7 @@ export default function SearchModal({ open, onClose }: { open: boolean; onClose:
             aria-label="Tutup pencarian"
             className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10"
           >
-            ✕
+            <CloseIcon className="h-4 w-4" />
           </button>
         </div>
 

@@ -228,6 +228,39 @@ a:hover .arrow-nudge,
   animation: shake 0.4s ease-in-out;
 }
 
+/* Gelombang bawah Hero — 3 path identik saling crossfade warna, siklus terus-menerus, tetap dalam palet web */
+@keyframes wave-cycle {
+  0% {
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  28% {
+    opacity: 1;
+  }
+  36% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.wave-color-a,
+.wave-color-b,
+.wave-color-c {
+  animation: wave-cycle 9s linear infinite;
+}
+.wave-color-a {
+  animation-delay: 0s;
+}
+.wave-color-b {
+  animation-delay: -3s;
+}
+.wave-color-c {
+  animation-delay: -6s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up,
   .animate-fade-in,
@@ -243,5 +276,13 @@ a:hover .arrow-nudge,
   .card-lift:hover,
   .btn-pop:hover {
     transform: none !important;
+  }
+  .wave-color-a,
+  .wave-color-c {
+    display: none;
+  }
+  .wave-color-b {
+    animation: none !important;
+    opacity: 1 !important;
   }
 }

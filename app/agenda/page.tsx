@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import PublicShell from "@/components/PublicShell";
 import EmptyState from "@/components/EmptyState";
+import { CalendarIcon } from "@/components/icons";
 import Reveal from "@/components/Reveal";
 
 export const revalidate = 60;
@@ -59,7 +60,7 @@ export default async function AgendaPage() {
             ))}
           </div>
         ) : (
-          <EmptyState icon="🗓️" message="Belum ada agenda mendatang." />
+          <EmptyState icon={<CalendarIcon className="h-6 w-6" />} message="Belum ada agenda mendatang." />
         )}
       </main>
     </PublicShell>
