@@ -104,28 +104,44 @@ export default function Hero({
           </div>
         </div>
       </section>
-      <svg
-        viewBox="0 0 1440 40"
-        preserveAspectRatio="none"
-        className="block h-8 w-full sm:h-10"
-        aria-hidden="true"
-      >
-        <path
-          className="wave-color-a"
-          d="M0,20 C240,40 480,0 720,14 C960,28 1200,6 1440,20 L1440,40 L0,40 Z"
-          fill="#1e4b8c"
-        />
-        <path
-          className="wave-color-b"
-          d="M0,20 C240,40 480,0 720,14 C960,28 1200,6 1440,20 L1440,40 L0,40 Z"
-          fill="#3f8f5f"
-        />
-        <path
-          className="wave-color-c"
-          d="M0,20 C240,40 480,0 720,14 C960,28 1200,6 1440,20 L1440,40 L0,40 Z"
-          fill="#dc8a3c"
-        />
-      </svg>
+      <div className="wave-track relative h-8 w-full overflow-hidden sm:h-10" aria-hidden="true">
+        <div className="wave-scroll flex h-full w-[200%]">
+          <svg viewBox="0 0 1440 40" preserveAspectRatio="none" className="h-full w-1/2 flex-shrink-0">
+            <path
+              className="wave-color-a"
+              d="M0,20 C240,40 480,0 720,14 C960,28 1200,6 1440,20 L1440,40 L0,40 Z"
+              fill="#1e4b8c"
+            />
+            <path
+              className="wave-color-b"
+              d="M0,20 C240,40 480,0 720,14 C960,28 1200,6 1440,20 L1440,40 L0,40 Z"
+              fill="#3f8f5f"
+            />
+            <path
+              className="wave-color-c"
+              d="M0,20 C240,40 480,0 720,14 C960,28 1200,6 1440,20 L1440,40 L0,40 Z"
+              fill="#dc8a3c"
+            />
+          </svg>
+          <svg viewBox="0 0 1440 40" preserveAspectRatio="none" className="h-full w-1/2 flex-shrink-0">
+            <path
+              className="wave-color-a"
+              d="M0,20 C240,40 480,0 720,14 C960,28 1200,6 1440,20 L1440,40 L0,40 Z"
+              fill="#1e4b8c"
+            />
+            <path
+              className="wave-color-b"
+              d="M0,20 C240,40 480,0 720,14 C960,28 1200,6 1440,20 L1440,40 L0,40 Z"
+              fill="#3f8f5f"
+            />
+            <path
+              className="wave-color-c"
+              d="M0,20 C240,40 480,0 720,14 C960,28 1200,6 1440,20 L1440,40 L0,40 Z"
+              fill="#dc8a3c"
+            />
+          </svg>
+        </div>
+      </div>
     </>
   );
 }

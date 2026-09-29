@@ -261,6 +261,20 @@ a:hover .arrow-nudge,
   animation-delay: -6s;
 }
 
+/* Gerakan geser halus & lambat, dua salinan wave berdampingan (200% lebar) supaya looping mulus tanpa patahan */
+@keyframes wave-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.wave-scroll {
+  animation: wave-scroll 16s linear infinite;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up,
   .animate-fade-in,
@@ -284,5 +298,13 @@ a:hover .arrow-nudge,
   .wave-color-b {
     animation: none !important;
     opacity: 1 !important;
+  }
+  .wave-scroll {
+    animation: none !important;
+    transform: none !important;
+    width: 100% !important;
+  }
+  .wave-scroll > svg:last-child {
+    display: none;
   }
 }
