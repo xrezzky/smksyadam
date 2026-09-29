@@ -11,7 +11,9 @@ export default function SectionTitle({
         <span className="title-underline h-[2px] w-5 rounded-full bg-accent-green" />
         {eyebrow}
       </div>
-      <h2 className="font-serif text-[clamp(24px,3.5vw,32px)] text-blue-900">{title}</h2>
+      <h2 className="font-serif text-[clamp(24px,3.5vw,32px)] text-blue-900 dark:text-gray-100">
+        {title}
+      </h2>
     </div>
   );
 }

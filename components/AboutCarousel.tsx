@@ -28,7 +28,7 @@ export default function AboutCarousel({ images }: { images: AboutImage[] }) {
   if (images.length === 0) return null;
 
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-md border border-gray-200 bg-gray-50">
+    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-md border border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-800">
       {images.map((img, i) => (
         <div
           key={img.id}

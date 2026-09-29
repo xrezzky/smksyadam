@@ -18,8 +18,8 @@ export default async function KegiatanPage() {
     <PublicShell>
       <main className="mx-auto max-w-6xl px-5 py-10 md:py-14">
         <Reveal className="mb-7 flex items-baseline justify-between">
-          <h1 className="font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Kegiatan Sekolah</h1>
-          <Link href="/galeri" className="group text-[13.5px] font-semibold text-blue-700">
+          <h1 className="font-serif text-[clamp(24px,4vw,30px)] text-blue-900 dark:text-gray-100">Kegiatan Sekolah</h1>
+          <Link href="/galeri" className="group text-[13.5px] font-semibold text-blue-700 dark:text-blue-300">
             Lihat Semua Galeri <span className="arrow-nudge">→</span>
           </Link>
         </Reveal>
@@ -27,7 +27,7 @@ export default async function KegiatanPage() {
         {items && items.length > 0 ? (
           <GaleriGrid items={items} />
         ) : (
-          <p className="text-[14px] text-gray-500">
+          <p className="text-[14px] text-gray-500 dark:text-gray-400">
             Dokumentasi kegiatan sekolah akan ditampilkan di sini.
           </p>
         )}

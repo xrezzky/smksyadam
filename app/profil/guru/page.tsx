@@ -12,7 +12,7 @@ export default async function GuruPage() {
   return (
     <PublicShell>
       <main className="mx-auto max-w-6xl px-5 py-10 md:py-14">
-        <h1 className="mb-7 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Guru & Tenaga Kependidikan</h1>
+        <h1 className="mb-7 font-serif text-[clamp(24px,4vw,30px)] text-blue-900 dark:text-gray-100">Guru & Tenaga Kependidikan</h1>
 
         {teachers && teachers.length > 0 ? (
           <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4">
@@ -26,10 +26,10 @@ export default async function GuruPage() {
                     className="mx-auto mb-3 h-28 w-28 rounded-full object-cover"
                   />
                 ) : (
-                  <div className="mx-auto mb-3 h-28 w-28 rounded-full bg-gray-50" />
+                  <div className="mx-auto mb-3 h-28 w-28 rounded-full bg-gray-50 dark:bg-gray-800" />
                 )}
-                <h3 className="text-[14.5px] font-semibold text-ink">{t.full_name}</h3>
-                <p className="text-[13px] text-gray-500">{t.position}</p>
+                <h3 className="text-[14.5px] font-semibold text-ink dark:text-gray-100">{t.full_name}</h3>
+                <p className="text-[13px] text-gray-500 dark:text-gray-400">{t.position}</p>
                 {t.subject_area && (
                   <p className="text-[12px] text-accent-green">{t.subject_area}</p>
                 )}

@@ -4,10 +4,10 @@ export default function FasilitasPage() {
   return (
     <PublicShell>
       <main className="mx-auto max-w-3xl px-5 py-10 md:py-14">
-        <h1 className="mb-5 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Fasilitas Sekolah</h1>
-        <div className="space-y-6 text-[15.5px] leading-relaxed text-gray-500">
+        <h1 className="mb-5 font-serif text-[clamp(24px,4vw,30px)] text-blue-900 dark:text-gray-100">Fasilitas Sekolah</h1>
+        <div className="space-y-6 text-[15.5px] leading-relaxed text-gray-500 dark:text-gray-400">
           <div>
-            <h2 className="mb-2 text-[13px] font-semibold uppercase tracking-wide text-blue-700">
+            <h2 className="mb-2 text-[13px] font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">
               Gedung & Lahan
             </h2>
             <ul className="list-disc space-y-1 pl-5 text-[14.5px]">
@@ -17,7 +17,7 @@ export default function FasilitasPage() {
             </ul>
           </div>
           <div>
-            <h2 className="mb-2 text-[13px] font-semibold uppercase tracking-wide text-blue-700">
+            <h2 className="mb-2 text-[13px] font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">
               Ruang Pembelajaran & Praktik
             </h2>
             <ul className="list-disc space-y-1 pl-5 text-[14.5px]">
@@ -28,7 +28,7 @@ export default function FasilitasPage() {
             </ul>
           </div>
           <div>
-            <h2 className="mb-2 text-[13px] font-semibold uppercase tracking-wide text-blue-700">
+            <h2 className="mb-2 text-[13px] font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">
               Fasilitas Penunjang
             </h2>
             <ul className="list-disc space-y-1 pl-5 text-[14.5px]">
@@ -38,7 +38,7 @@ export default function FasilitasPage() {
             </ul>
           </div>
           <div>
-            <h2 className="mb-2 text-[13px] font-semibold uppercase tracking-wide text-blue-700">
+            <h2 className="mb-2 text-[13px] font-semibold uppercase tracking-wide text-blue-700 dark:text-blue-300">
               Sarana Olahraga
             </h2>
             <ul className="list-disc space-y-1 pl-5 text-[14.5px]">

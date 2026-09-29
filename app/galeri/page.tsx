@@ -15,7 +15,7 @@ export default async function GaleriPage() {
   return (
     <PublicShell>
       <main className="mx-auto max-w-6xl px-5 py-10 md:py-14">
-        <h1 className="mb-7 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Galeri</h1>
+        <h1 className="mb-7 font-serif text-[clamp(24px,4vw,30px)] text-blue-900 dark:text-gray-100">Galeri</h1>
 
         {items && items.length > 0 ? (
           <GaleriGrid items={items} />

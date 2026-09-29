@@ -34,11 +34,11 @@ function CountUpItem({ stat, active }: { stat: Stat; active: boolean }) {
 
   return (
     <div className="text-center">
-      <div className="font-serif text-[clamp(28px,5vw,38px)] font-bold text-blue-900">
+      <div className="font-serif text-[clamp(28px,5vw,38px)] font-bold text-blue-900 dark:text-blue-300">
         {display}
         {stat.suffix ?? ""}
       </div>
-      <div className="mt-1 text-[13px] text-gray-500">{stat.label}</div>
+      <div className="mt-1 text-[13px] text-gray-500 dark:text-gray-400">{stat.label}</div>
     </div>
   );
 }

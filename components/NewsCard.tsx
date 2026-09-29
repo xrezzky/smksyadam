@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BlurImage from "@/components/BlurImage";
 
 export type NewsItem = {
   slug: string;
@@ -21,12 +22,11 @@ export default function NewsCard({ item }: { item: NewsItem }) {
   return (
     <Link
       href={`/berita/${item.slug}`}
-      className="card-lift group block overflow-hidden rounded-md border border-gray-200 hover:border-blue-500"
+      className="card-lift group block overflow-hidden rounded-md border border-gray-200 hover:border-blue-500 dark:border-gray-800 dark:bg-gray-900"
     >
-      <div className="flex aspect-video items-center justify-center overflow-hidden border-b border-gray-200 bg-gray-50 text-xs text-gray-500">
+      <div className="flex aspect-video items-center justify-center overflow-hidden border-b border-gray-200 bg-gray-50 text-xs text-gray-500 dark:border-gray-800 dark:bg-gray-800 dark:text-gray-400">
         {item.thumbnail_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <BlurImage
             src={item.thumbnail_url}
             alt={item.title}
             className="img-zoom h-full w-full object-cover"
@@ -41,11 +41,15 @@ export default function NewsCard({ item }: { item: NewsItem }) {
             {item.category_name}
           </div>
         )}
-        <h3 className="mb-1.5 text-[15.5px] font-medium leading-snug text-ink transition-colors duration-200 group-hover:text-blue-700">
+        <h3 className="mb-1.5 text-[15.5px] font-medium leading-snug text-ink transition-colors duration-200 group-hover:text-blue-700 dark:text-gray-100">
           {item.title}
         </h3>
-        {date && <div className="mb-2 text-xs text-gray-500">{date}</div>}
-        {item.excerpt && <p className="text-[14px] leading-relaxed text-gray-500">{item.excerpt}</p>}
+        {date && <div className="mb-2 text-xs text-gray-500 dark:text-gray-400">{date}</div>}
+        {item.excerpt && (
+          <p className="text-[14px] leading-relaxed text-gray-500 dark:text-gray-400">
+            {item.excerpt}
+          </p>
+        )}
       </div>
     </Link>
   );

@@ -15,7 +15,7 @@ export default async function JurusanListPage() {
   return (
     <PublicShell>
       <main className="mx-auto max-w-6xl px-5 py-10 md:py-14">
-        <h1 className="mb-7 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Kompetensi Keahlian</h1>
+        <h1 className="mb-7 font-serif text-[clamp(24px,4vw,30px)] text-blue-900 dark:text-gray-100">Kompetensi Keahlian</h1>
         {departments && departments.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3">
             {departments.map((d, i) => (

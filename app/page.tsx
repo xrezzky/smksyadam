@@ -32,6 +32,7 @@ export default async function HomePage() {
     { count: departmentsTotal },
     { count: newsTotal },
     { count: announcementsTotal },
+    { count: newAnnouncementsCount },
   ] = await Promise.all([
     supabase.from("school_settings").select("*").eq("id", 1).maybeSingle(),
     supabase
@@ -55,6 +56,11 @@ export default async function HomePage() {
       .from("announcements")
       .select("*", { count: "exact", head: true })
       .eq("is_published", true),
+    supabase
+      .from("announcements")
+      .select("*", { count: "exact", head: true })
+      .eq("is_published", true)
+      .gte("published_at", new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()),
   ]);
 
   const departmentList: Department[] = departments ?? [];
@@ -79,22 +85,23 @@ export default async function HomePage() {
         schoolName={settings?.school_name ?? undefined}
         logoUrl={settings?.logo_url}
         whatsapp={settings?.whatsapp}
+        newAnnouncementsCount={newAnnouncementsCount ?? 0}
       />
       <Hero heroImageUrl={settings?.hero_image_url} />
 
       {/* SECTION — Statistik singkat */}
-      <section className="bg-white py-8 md:py-10">
+      <section className="bg-white py-8 dark:bg-gray-950 md:py-10">
         <Reveal className="mx-auto max-w-6xl px-5">
           <StatsCounter stats={stats} />
         </Reveal>
       </section>
 
       {/* SECTION 1 — Tentang Sekolah */}
-      <section className="py-10 md:py-14">
+      <section className="bg-white py-10 dark:bg-gray-950 md:py-14">
         <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 px-5 md:grid-cols-[1.1fr_0.9fr] md:gap-10">
           <Reveal direction="left">
             <SectionTitle eyebrow="Tentang Kami" title="Tentang SMK Syadam" />
-            <p className="mb-5 max-w-[52ch] text-[15px] leading-relaxed text-gray-500">
+            <p className="mb-5 max-w-[52ch] text-[15px] leading-relaxed text-gray-500 dark:text-gray-400">
               SMK Syadam Bojonggede adalah sekolah menengah kejuruan swasta di bawah naungan
               Yayasan Aqilah Hidayah, berdiri sejak tahun 2011 di Tajur Halang, Kabupaten Bogor.
               Sekolah ini menyelenggarakan pendidikan vokasi dengan Kurikulum Merdeka, membuka
@@ -103,7 +110,7 @@ export default async function HomePage() {
             </p>
             <Link
               href="/profil/tentang"
-              className="btn-pop inline-block rounded-md border border-blue-500 px-[22px] py-3 text-sm font-semibold text-blue-700 hover:bg-blue-100"
+              className="btn-pop inline-block rounded-md border border-blue-500 px-[22px] py-3 text-sm font-semibold text-blue-700 hover:bg-blue-100 dark:text-blue-300 dark:hover:bg-white/10"
             >
               Selengkapnya
             </Link>
@@ -112,12 +119,12 @@ export default async function HomePage() {
             {aboutImageList.length > 0 ? (
               <AboutCarousel images={aboutImageList} />
             ) : (
-              <div className="flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-blue-100 to-blue-50 p-6 text-center">
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-xl shadow-sm">
+              <div className="flex aspect-[4/3] flex-col items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-blue-100 to-blue-50 p-6 text-center dark:from-gray-800 dark:to-gray-900">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-xl shadow-sm dark:bg-gray-700">
                   🏫
                 </span>
-                <p className="text-[13.5px] font-medium text-blue-900">Foto lingkungan sekolah</p>
-                <p className="text-[12.5px] text-blue-700/70">
+                <p className="text-[13.5px] font-medium text-blue-900 dark:text-gray-200">Foto lingkungan sekolah</p>
+                <p className="text-[12.5px] text-blue-700/70 dark:text-blue-300/70">
                   Segera hadir — dapat diisi admin lewat menu &quot;Foto Tentang&quot;
                 </p>
               </div>
@@ -127,7 +134,7 @@ export default async function HomePage() {
       </section>
 
       {/* SECTION 4 — Kompetensi Keahlian */}
-      <section className="bg-gray-50 py-10 md:py-14">
+      <section className="bg-gray-50 py-10 dark:bg-gray-900/40 md:py-14">
         <div className="mx-auto max-w-6xl px-5">
           <Reveal>
             <SectionTitle eyebrow="Akademik" title="Kompetensi Keahlian" />
@@ -151,11 +158,11 @@ export default async function HomePage() {
       </section>
 
       {/* SECTION 5 — Berita Terbaru */}
-      <section className="py-10 md:py-14">
+      <section className="bg-white py-10 dark:bg-gray-950 md:py-14">
         <div className="mx-auto max-w-6xl px-5">
           <Reveal className="mb-1 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
             <SectionTitle eyebrow="Informasi" title="Berita Terbaru" />
-            <Link href="/berita" className="group text-[13.5px] font-semibold text-blue-700">
+            <Link href="/berita" className="group text-[13.5px] font-semibold text-blue-700 dark:text-blue-300">
               Lihat Semua Berita <span className="arrow-nudge">→</span>
             </Link>
           </Reveal>

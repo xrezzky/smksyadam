@@ -4,18 +4,26 @@ import Footer from "@/components/Footer";
 
 export default async function TentangPage() {
   const supabase = createClient();
-  const { data: settings } = await supabase
-    .from("school_settings")
-    .select("*")
-    .eq("id", 1)
-    .maybeSingle();
+  const [{ data: settings }, { count: newAnnouncementsCount }] = await Promise.all([
+    supabase.from("school_settings").select("*").eq("id", 1).maybeSingle(),
+    supabase
+      .from("announcements")
+      .select("*", { count: "exact", head: true })
+      .eq("is_published", true)
+      .gte("published_at", new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()),
+  ]);
 
   return (
     <>
-      <Navbar schoolName={settings?.school_name ?? undefined} logoUrl={settings?.logo_url} />
+      <Navbar
+        schoolName={settings?.school_name ?? undefined}
+        logoUrl={settings?.logo_url}
+        whatsapp={settings?.whatsapp}
+        newAnnouncementsCount={newAnnouncementsCount ?? 0}
+      />
       <main className="mx-auto max-w-3xl px-5 py-10 md:py-14">
-        <h1 className="mb-5 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Tentang Sekolah</h1>
-        <div className="space-y-4 text-[15.5px] leading-relaxed text-gray-500">
+        <h1 className="mb-5 font-serif text-[clamp(24px,4vw,30px)] text-blue-900 dark:text-gray-100">Tentang Sekolah</h1>
+        <div className="space-y-4 text-[15.5px] leading-relaxed text-gray-500 dark:text-gray-400">
           <p>
             SMK Syadam Bojonggede adalah sekolah menengah kejuruan (SMK) swasta yang berdiri sejak
             tahun 2011 di Tajur Halang, Kabupaten Bogor, Jawa Barat, di bawah naungan Yayasan

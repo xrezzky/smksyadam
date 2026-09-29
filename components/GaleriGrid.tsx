@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import BlurImage from "@/components/BlurImage";
 
 export type GalleryItem = {
   id: string;
@@ -46,14 +47,12 @@ export default function GaleriGrid({ items }: { items: GalleryItem[] }) {
             key={g.id}
             type="button"
             onClick={() => setOpenIndex(i)}
-            className="group animate-fade-in overflow-hidden rounded-md border border-gray-200"
+            className="group animate-fade-in overflow-hidden rounded-md border border-gray-200 dark:border-gray-800"
             style={{ animationDelay: `${Math.min(i, 12) * 60}ms` }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <BlurImage
               src={g.image_url}
               alt={g.caption ?? ""}
-              loading="lazy"
               className="img-zoom aspect-square w-full object-cover"
             />
           </button>

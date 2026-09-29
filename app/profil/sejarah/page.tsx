@@ -4,8 +4,8 @@ export default function SejarahPage() {
   return (
     <PublicShell>
       <main className="mx-auto max-w-3xl px-5 py-10 md:py-14">
-        <h1 className="mb-5 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">Sejarah Sekolah</h1>
-        <div className="space-y-4 text-[15.5px] leading-relaxed text-gray-500">
+        <h1 className="mb-5 font-serif text-[clamp(24px,4vw,30px)] text-blue-900 dark:text-gray-100">Sejarah Sekolah</h1>
+        <div className="space-y-4 text-[15.5px] leading-relaxed text-gray-500 dark:text-gray-400">
           <p>
             SMK Syadam Bojonggede didirikan pada 10 Juni 2011 oleh Yayasan Aqilah Hidayah, sebagai
             respons atas kebutuhan masyarakat di wilayah perbatasan Tajur Halang dan Bojonggede

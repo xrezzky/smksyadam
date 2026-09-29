@@ -15,7 +15,7 @@ export default async function JurusanDetailPage({ params }: { params: { slug: st
   return (
     <PublicShell>
       <main className="mx-auto max-w-3xl px-5 py-10 md:py-14">
-        <h1 className="mb-5 font-serif text-[clamp(24px,4vw,30px)] text-blue-900">{item.name}</h1>
+        <h1 className="mb-5 font-serif text-[clamp(24px,4vw,30px)] text-blue-900 dark:text-gray-100">{item.name}</h1>
         {item.photo_url && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -24,7 +24,7 @@ export default async function JurusanDetailPage({ params }: { params: { slug: st
             className="mb-7 aspect-video w-full rounded-md object-cover"
           />
         )}
-        <div className="whitespace-pre-line text-[15.5px] leading-relaxed text-ink">
+        <div className="whitespace-pre-line text-[15.5px] leading-relaxed text-ink dark:text-gray-100">
           {item.full_description ?? item.short_description ?? "Deskripsi jurusan akan diperbarui."}
         </div>
       </main>

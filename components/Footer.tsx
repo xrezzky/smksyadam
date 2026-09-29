@@ -10,7 +10,7 @@ export default function Footer({ settings }: { settings?: Settings }) {
   const name = settings?.school_name ?? "SMK Syadam Bojonggede";
 
   return (
-    <footer className="border-t border-gray-200 bg-gray-50 pb-5 pt-8 md:pt-10">
+    <footer className="border-t border-gray-200 bg-gray-50 pb-5 pt-8 dark:border-gray-800 dark:bg-gray-900 md:pt-10">
       <div className="mx-auto max-w-6xl px-5">
         <div className="mb-7 grid grid-cols-1 gap-7 sm:grid-cols-2 md:grid-cols-[1.3fr_1fr_1fr] md:gap-10">
           <div>
@@ -23,45 +23,57 @@ export default function Footer({ settings }: { settings?: Settings }) {
                 <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-700 font-serif text-sm font-bold text-white">
                   SS
                 </span>
-                <span className="text-sm font-bold">{name.toUpperCase()}</span>
+                <span className="text-sm font-bold dark:text-gray-100">{name.toUpperCase()}</span>
               </div>
             )}
-            <p className="mt-2 max-w-[36ch] text-[13.5px] leading-relaxed text-gray-500">
+            <p className="mt-2 max-w-[36ch] text-[13.5px] leading-relaxed text-gray-500 dark:text-gray-400">
               Website resmi {name}, Kabupaten Bogor. Pusat informasi akademik, kegiatan, dan
               penerimaan peserta didik baru.
             </p>
           </div>
           <div>
-            <h4 className="mb-2.5 text-[13px] font-semibold uppercase tracking-wide text-ink">
+            <h4 className="mb-2.5 text-[13px] font-semibold uppercase tracking-wide text-ink dark:text-gray-200">
               Navigasi
             </h4>
             <div className="space-y-1.5">
-              <a href="/profil/tentang" className="block text-[13.5px] text-gray-500 hover:text-blue-700">
+              <a
+                href="/profil/tentang"
+                className="block text-[13.5px] text-gray-500 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-300"
+              >
                 Profil Sekolah
               </a>
-              <a href="/akademik/jurusan" className="block text-[13.5px] text-gray-500 hover:text-blue-700">
+              <a
+                href="/akademik/jurusan"
+                className="block text-[13.5px] text-gray-500 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-300"
+              >
                 Akademik
               </a>
-              <a href="/berita" className="block text-[13.5px] text-gray-500 hover:text-blue-700">
+              <a
+                href="/berita"
+                className="block text-[13.5px] text-gray-500 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-300"
+              >
                 Berita
               </a>
-              <a href="/ppdb" className="block text-[13.5px] text-gray-500 hover:text-blue-700">
+              <a
+                href="/ppdb"
+                className="block text-[13.5px] text-gray-500 hover:text-blue-700 dark:text-gray-400 dark:hover:text-blue-300"
+              >
                 PPDB
               </a>
             </div>
           </div>
           <div>
-            <h4 className="mb-2.5 text-[13px] font-semibold uppercase tracking-wide text-ink">
+            <h4 className="mb-2.5 text-[13px] font-semibold uppercase tracking-wide text-ink dark:text-gray-200">
               Kontak
             </h4>
-            <div className="space-y-1.5 text-[13.5px] text-gray-500">
+            <div className="space-y-1.5 text-[13.5px] text-gray-500 dark:text-gray-400">
               <p>{settings?.address ?? "[Alamat resmi sekolah]"}</p>
               <p>{settings?.phone ?? "[Nomor telepon/WA]"}</p>
               <p>{settings?.email ?? "[Email sekolah]"}</p>
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap justify-between gap-2 border-t border-gray-200 pt-3.5 text-xs text-gray-500">
+        <div className="flex flex-wrap justify-between gap-2 border-t border-gray-200 pt-3.5 text-xs text-gray-500 dark:border-gray-800 dark:text-gray-500">
           <span>
             © {new Date().getFullYear()} {name}. All rights reserved.
           </span>

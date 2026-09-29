@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ThemeToggle from "@/components/ThemeToggle";
+import SearchModal from "@/components/SearchModal";
 
 const menu = [
   { label: "Beranda", href: "/" },
@@ -31,7 +33,7 @@ const menu = [
     href: "/berita",
     children: [
       { label: "Berita", href: "/berita" },
-      { label: "Pengumuman", href: "/pengumuman" },
+      { label: "Pengumuman", href: "/pengumuman", badgeKey: "announcements" as const },
       { label: "Agenda", href: "/agenda" },
     ],
   },
@@ -44,15 +46,18 @@ export default function Navbar({
   schoolName = "SMK Syadam",
   logoUrl,
   whatsapp,
+  newAnnouncementsCount = 0,
 }: {
   schoolName?: string;
   logoUrl?: string | null;
   whatsapp?: string | null;
+  newAnnouncementsCount?: number;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   // Satu listener scroll untuk tiga hal: bayangan navbar, progress bar, dan tombol "ke atas"
   useEffect(() => {
@@ -72,11 +77,23 @@ export default function Navbar({
     };
   }, []);
 
+  // Pintasan keyboard Cmd/Ctrl+K untuk buka pencarian dari mana saja
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   return (
     <>
       <header
-        className={`sticky top-0 z-50 border-b bg-white/95 backdrop-blur transition-shadow duration-300 ${
-          scrolled ? "border-gray-200 shadow-md" : "border-transparent shadow-none"
+        className={`sticky top-0 z-50 border-b bg-white/95 backdrop-blur transition-shadow duration-300 dark:bg-gray-950/95 ${
+          scrolled ? "border-gray-200 shadow-md dark:border-gray-800" : "border-transparent shadow-none"
         }`}
       >
         {/* Progress bar tipis — menunjukkan seberapa jauh halaman sudah dibaca/discroll */}
@@ -85,123 +102,164 @@ export default function Navbar({
           style={{ width: `${progress}%` }}
           aria-hidden="true"
         />
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
-        <Link href="/" className="flex flex-shrink-0 items-center gap-2.5">
-          {logoUrl ? (
-            // Logo dianggap sudah memuat nama sekolah — tidak perlu diulang jadi teks di sampingnya
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={logoUrl} alt={schoolName} className="h-12 w-auto max-w-[220px] object-contain" />
-          ) : (
-            <>
-              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-blue-700 font-serif text-sm font-bold text-white">
-                SS
-              </span>
-              <span className="leading-tight">
-                <span className="block text-sm font-bold">{schoolName.toUpperCase()}</span>
-                <span className="block text-[11px] text-gray-500">Bojonggede · Kab. Bogor</span>
-              </span>
-            </>
-          )}
-        </Link>
-
-        <nav className="hidden items-center gap-7 text-sm md:flex">
-          {menu.map((item) => (
-            <div key={item.label} className="group relative flex h-full items-center">
-              <Link
-                href={item.href}
-                className="border-b-2 border-transparent py-2 text-blue-900 transition-colors duration-200 hover:border-blue-500"
-              >
-                {item.label}
-              </Link>
-              {item.children && (
-                <div className="invisible absolute left-0 top-full min-w-[210px] -translate-y-1.5 rounded-md border border-gray-200 bg-white py-2 opacity-0 shadow-lg transition-all duration-200 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                  {item.children.map((child) => (
-                    <Link
-                      key={child.href}
-                      href={child.href}
-                      className="block px-4 py-2 text-[13.5px] text-ink transition-colors duration-150 hover:bg-blue-100 hover:text-blue-700"
-                    >
-                      {child.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </nav>
-
-        <Link
-          href="/ppdb"
-          className="hidden flex-shrink-0 rounded-md bg-blue-700 px-[18px] py-2.5 text-sm font-semibold text-white hover:bg-blue-900 md:inline-block"
-        >
-          Informasi PPDB
-        </Link>
-
-        <button
-          aria-label="Buka menu"
-          aria-expanded={mobileOpen}
-          className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center md:hidden"
-          onClick={() => setMobileOpen((v) => !v)}
-        >
-          <span
-            className={`absolute block h-0.5 w-6 rounded-full bg-blue-900 transition-all duration-300 ${
-              mobileOpen ? "rotate-45" : "-translate-y-2"
-            }`}
-          />
-          <span
-            className={`absolute block h-0.5 w-6 rounded-full bg-blue-900 transition-all duration-200 ${
-              mobileOpen ? "opacity-0" : "opacity-100"
-            }`}
-          />
-          <span
-            className={`absolute block h-0.5 w-6 rounded-full bg-blue-900 transition-all duration-300 ${
-              mobileOpen ? "-rotate-45" : "translate-y-2"
-            }`}
-          />
-        </button>
-      </div>
-
-      <nav
-        className={`grid overflow-hidden border-gray-200 bg-white transition-all duration-300 ease-out md:hidden ${
-          mobileOpen ? "grid-rows-[1fr] border-t opacity-100" : "grid-rows-[0fr] border-t-0 opacity-0"
-        }`}
-      >
-        <div className="max-h-[80vh] overflow-y-auto px-5 py-3">
-          {menu.map((item) => (
-            <div key={item.label} className="py-1.5">
-              <Link
-                href={item.href}
-                className="block py-1.5 text-[15px] font-medium text-blue-900"
-                onClick={() => setMobileOpen(false)}
-              >
-                {item.label}
-              </Link>
-              {item.children && (
-                <div className="ml-3 border-l border-gray-200 pl-3">
-                  {item.children.map((child) => (
-                    <Link
-                      key={child.href}
-                      href={child.href}
-                      className="block py-1.5 text-[13.5px] text-gray-500"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {child.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-          <Link
-            href="/ppdb"
-            className="mt-2 block rounded-md bg-blue-700 px-4 py-2 text-center text-sm font-semibold text-white"
-            onClick={() => setMobileOpen(false)}
-          >
-            Informasi PPDB
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
+          <Link href="/" className="flex flex-shrink-0 items-center gap-2.5">
+            {logoUrl ? (
+              // Logo dianggap sudah memuat nama sekolah — tidak perlu diulang jadi teks di sampingnya
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={logoUrl} alt={schoolName} className="h-12 w-auto max-w-[220px] object-contain" />
+            ) : (
+              <>
+                <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-blue-700 font-serif text-sm font-bold text-white">
+                  SS
+                </span>
+                <span className="leading-tight">
+                  <span className="block text-sm font-bold dark:text-gray-100">
+                    {schoolName.toUpperCase()}
+                  </span>
+                  <span className="block text-[11px] text-gray-500 dark:text-gray-400">
+                    Bojonggede · Kab. Bogor
+                  </span>
+                </span>
+              </>
+            )}
           </Link>
+
+          <nav className="hidden items-center gap-7 text-sm md:flex">
+            {menu.map((item) => (
+              <div key={item.label} className="group relative flex h-full items-center">
+                <Link
+                  href={item.href}
+                  className="relative flex items-center border-b-2 border-transparent py-2 text-blue-900 transition-colors duration-200 hover:border-blue-500 dark:text-gray-100"
+                >
+                  {item.label}
+                  {item.label === "Informasi" && newAnnouncementsCount > 0 && (
+                    <span className="absolute -right-2.5 -top-0.5 flex h-2 w-2 animate-pulse rounded-full bg-accent-orange" />
+                  )}
+                </Link>
+                {item.children && (
+                  <div className="invisible absolute left-0 top-full min-w-[210px] -translate-y-1.5 rounded-md border border-gray-200 bg-white py-2 opacity-0 shadow-lg transition-all duration-200 ease-out group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-gray-800 dark:bg-gray-900">
+                    {item.children.map((child: any) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        className="flex items-center justify-between px-4 py-2 text-[13.5px] text-ink transition-colors duration-150 hover:bg-blue-100 hover:text-blue-700 dark:text-gray-200 dark:hover:bg-white/10 dark:hover:text-blue-300"
+                      >
+                        {child.label}
+                        {child.badgeKey === "announcements" && newAnnouncementsCount > 0 && (
+                          <span className="ml-2 rounded-full bg-accent-orange px-1.5 py-0.5 text-[10px] font-bold text-white">
+                            {newAnnouncementsCount}
+                          </span>
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </nav>
+
+          <div className="hidden flex-shrink-0 items-center gap-1.5 md:flex">
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              aria-label="Cari (Ctrl+K)"
+              className="btn-pop flex h-9 w-9 items-center justify-center rounded-full text-blue-900 hover:bg-blue-100 dark:text-blue-200 dark:hover:bg-white/10"
+            >
+              🔍
+            </button>
+            <ThemeToggle />
+            <Link
+              href="/ppdb"
+              className="btn-pop ml-1 flex-shrink-0 rounded-md bg-blue-700 px-[18px] py-2.5 text-sm font-semibold text-white hover:bg-blue-900"
+            >
+              Informasi PPDB
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-1 md:hidden">
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              aria-label="Cari"
+              className="flex h-8 w-8 items-center justify-center text-blue-900 dark:text-blue-200"
+            >
+              🔍
+            </button>
+            <ThemeToggle />
+            <button
+              aria-label="Buka menu"
+              aria-expanded={mobileOpen}
+              className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center"
+              onClick={() => setMobileOpen((v) => !v)}
+            >
+              <span
+                className={`absolute block h-0.5 w-6 rounded-full bg-blue-900 transition-all duration-300 dark:bg-gray-100 ${
+                  mobileOpen ? "rotate-45" : "-translate-y-2"
+                }`}
+              />
+              <span
+                className={`absolute block h-0.5 w-6 rounded-full bg-blue-900 transition-all duration-200 dark:bg-gray-100 ${
+                  mobileOpen ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`absolute block h-0.5 w-6 rounded-full bg-blue-900 transition-all duration-300 dark:bg-gray-100 ${
+                  mobileOpen ? "-rotate-45" : "translate-y-2"
+                }`}
+              />
+            </button>
+          </div>
         </div>
-      </nav>
+
+        <nav
+          className={`grid overflow-hidden border-gray-200 bg-white transition-all duration-300 ease-out dark:border-gray-800 dark:bg-gray-950 md:hidden ${
+            mobileOpen ? "grid-rows-[1fr] border-t opacity-100" : "grid-rows-[0fr] border-t-0 opacity-0"
+          }`}
+        >
+          <div className="max-h-[80vh] overflow-y-auto px-5 py-3">
+            {menu.map((item) => (
+              <div key={item.label} className="py-1.5">
+                <Link
+                  href={item.href}
+                  className="block py-1.5 text-[15px] font-medium text-blue-900 dark:text-gray-100"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {item.label}
+                </Link>
+                {item.children && (
+                  <div className="ml-3 border-l border-gray-200 pl-3 dark:border-gray-800">
+                    {item.children.map((child: any) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        className="flex items-center gap-2 py-1.5 text-[13.5px] text-gray-500 dark:text-gray-400"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {child.label}
+                        {child.badgeKey === "announcements" && newAnnouncementsCount > 0 && (
+                          <span className="rounded-full bg-accent-orange px-1.5 py-0.5 text-[10px] font-bold text-white">
+                            {newAnnouncementsCount}
+                          </span>
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            <Link
+              href="/ppdb"
+              className="mt-2 block rounded-md bg-blue-700 px-4 py-2 text-center text-sm font-semibold text-white"
+              onClick={() => setMobileOpen(false)}
+            >
+              Informasi PPDB
+            </Link>
+          </div>
+        </nav>
       </header>
+
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
 
       <button
         aria-label="Kembali ke atas"

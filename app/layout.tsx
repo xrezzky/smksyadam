@@ -23,8 +23,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id">
-      <body className="font-sans antialiased">{children}</body>
+    <html lang="id" suppressHydrationWarning>
+      <head>
+        {/* Set tema sebelum React hydrate supaya tidak ada kedipan warna salah saat load */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`,
+          }}
+        />
+      </head>
+      <body className="bg-white font-sans text-ink antialiased transition-colors duration-300 dark:bg-gray-950 dark:text-gray-100">
+        {children}
+      </body>
     </html>
   );
 }

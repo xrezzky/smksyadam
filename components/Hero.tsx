@@ -37,7 +37,7 @@ export default function Hero({
 
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-100 to-white py-8 sm:py-11 md:py-14">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-100 to-white py-8 dark:from-gray-900 dark:to-gray-950 sm:py-11 md:py-14">
         {heroImageUrl && (
           <div
             ref={bgRef}
@@ -65,11 +65,11 @@ export default function Hero({
         )}
 
         <div className="relative mx-auto max-w-6xl px-5">
-          <div className="animate-fade-in-up rounded-xl bg-white p-6 shadow-md sm:p-7 md:max-w-xl md:p-8">
-            <h1 className="mb-3.5 font-serif text-[clamp(28px,6vw,40px)] leading-[1.2] text-blue-900">
+          <div className="animate-fade-in-up rounded-xl bg-white p-6 shadow-md dark:bg-gray-900 dark:shadow-black/30 sm:p-7 md:max-w-xl md:p-8">
+            <h1 className="mb-3.5 font-serif text-[clamp(28px,6vw,40px)] leading-[1.2] text-blue-900 dark:text-gray-100">
               Selamat Datang di SMK Syadam Bojonggede
             </h1>
-            <p className="mb-6 text-[15px] leading-relaxed text-gray-500">
+            <p className="mb-6 text-[15px] leading-relaxed text-gray-500 dark:text-gray-400">
               {description ??
                 "Website ini menjadi pusat informasi resmi sekolah — profil, akademik, berita, agenda, dan penerimaan peserta didik baru — bagi siswa, orang tua, calon siswa, guru, dan masyarakat umum."}
             </p>
@@ -82,7 +82,7 @@ export default function Hero({
               </Link>
               <Link
                 href="/ppdb"
-                className="btn-pop rounded-md border border-blue-500 px-[22px] py-3 text-sm font-semibold text-blue-700 hover:bg-blue-100"
+                className="btn-pop rounded-md border border-blue-500 px-[22px] py-3 text-sm font-semibold text-blue-700 hover:bg-blue-100 dark:text-blue-300 dark:hover:bg-white/10"
               >
                 Informasi PPDB
               </Link>
@@ -90,19 +90,29 @@ export default function Hero({
             <div className="flex flex-wrap gap-5 text-sm">
               <Link
                 href="/akademik/jurusan"
-                className="group border-b border-blue-500 font-semibold text-blue-700"
+                className="group border-b border-blue-500 font-semibold text-blue-700 dark:text-blue-300"
               >
                 Lihat Jurusan <span className="arrow-nudge">→</span>
               </Link>
-              <Link href="/berita" className="group border-b border-blue-500 font-semibold text-blue-700">
+              <Link
+                href="/berita"
+                className="group border-b border-blue-500 font-semibold text-blue-700 dark:text-blue-300"
+              >
                 Berita Sekolah <span className="arrow-nudge">→</span>
               </Link>
             </div>
           </div>
         </div>
       </section>
-      <svg viewBox="0 0 1440 40" preserveAspectRatio="none" className="block h-8 w-full sm:h-10">
-        <path d="M0,20 C240,40 480,0 720,14 C960,28 1200,6 1440,20 L1440,40 L0,40 Z" fill="#f4f6f8" />
+      <svg
+        viewBox="0 0 1440 40"
+        preserveAspectRatio="none"
+        className="block h-8 w-full text-gray-50 dark:text-gray-900 sm:h-10"
+      >
+        <path
+          d="M0,20 C240,40 480,0 720,14 C960,28 1200,6 1440,20 L1440,40 L0,40 Z"
+          fill="currentColor"
+        />
       </svg>
     </>
   );
